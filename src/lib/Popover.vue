@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import {computed, onMounted, onUnmounted, ref, withDirectives} from 'vue';
+import {computed, onBeforeUnmount, onMounted, onUnmounted, ref, withDirectives} from 'vue';
 
 export default {
   props: {
@@ -51,7 +51,7 @@ export default {
         popover.value.addEventListener('mouseleave',close)
       }
     })
-    onUnmounted(()=>{
+    onBeforeUnmount(()=>{
       if(props.trigger === 'click'){
         popover.value.removeEventListener('click',click)
       }else{
