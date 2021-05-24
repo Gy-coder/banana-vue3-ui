@@ -10,6 +10,7 @@ import IconPage from './components/IconPage.vue'
 import RadioPage from './components/RadioPage.vue'
 import ToastPage from './components/ToastPage.vue'
 import PopoverPage from './components/PopoverPage.vue'
+import LayoutPage from './components/LayoutPage.vue'
 //@ts-ignore
 import install from './markdown/install.md'
 //@ts-ignore
@@ -72,6 +73,10 @@ const router = createRouter({
         {
           path: 'popover',
           component: PopoverPage
+        },
+        {
+          path:'layout',
+          component: LayoutPage,
         }
       ]}
   ]
