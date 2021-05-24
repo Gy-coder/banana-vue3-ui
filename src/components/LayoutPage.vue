@@ -48,7 +48,21 @@ export default {
 
 <style lang="scss" scoped>
 .demo{
-  border: 1px solid #999;
   min-height: 100px;
+  color: white;
 }
+.g-layout-sider{
+  background: #41a2e6;
+  width: 200px;
+}
+.g-layout-header{
+  background: #80bde8;
+}
+.g-layout-footer{
+  background: #80bde8;
+}
+.g-layout-content{
+  background: #1f90e6;
+}
+
 </style>

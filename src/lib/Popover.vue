@@ -43,21 +43,6 @@ export default {
     const popover = ref<HTMLElement>(null)
     const contentWrapper = ref<HTMLElement>(null);
     const triggerWrapper = ref<HTMLElement>(null);
-    const openEvent = computed(() => {
-      if(props.trigger === 'click'){
-        return 'click'
-      }else{
-        return 'mouseenter'
-      }
-    });
-    const closeEvent = computed(() => {
-      if(props.trigger === 'click'){
-        return 'click'
-      }else{
-        return 'mouseleave'
-      }
-    });
-
     onMounted(()=>{
       if(props.trigger === 'click'){
         popover.value.addEventListener('click',click)
