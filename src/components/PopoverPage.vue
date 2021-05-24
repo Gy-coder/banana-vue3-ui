@@ -1,70 +1,20 @@
 <template>
-    <Popover>
-      <template v-slot:content>
-        我是popover
-      </template>
-      <Button>click me</Button>
-    </Popover>
-  <br>
-    <Popover position="bottom">
-      <template v-slot:content>
-        我是popover
-      </template>
-      <Button>click me</Button>
-    </Popover>
-  <br>
-  <Popover position="left">
-    <template v-slot:content>
-      我是popover
-    </template>
-    <Button>click me</Button>
-  </Popover>
-  <br>
-  <Popover position="right">
-    <template v-slot:content>
-      我是popover
-    </template>
-    <Button>click me</Button>
-  </Popover>
-  <br>
-  <Popover trigger="hover">
-    <template v-slot:content>
-      我是popover
-    </template>
-    <Button>click me</Button>
-  </Popover>
-  <br>
-  <Popover position="bottom" trigger="hover">
-    <template v-slot:content>
-      我是popover
-    </template>
-    <Button>click me</Button>
-  </Popover>
-  <br>
-  <Popover position="left" trigger="hover">
-    <template v-slot:content>
-      我是popover
-    </template>
-    <Button>click me</Button>
-  </Popover>
-  <br>
-  <Popover position="right" trigger="hover">
-    <template v-slot:content>
-      我是popover
-    </template>
-    <Button>click me</Button>
-  </Popover>
-  <br>
+  <Demo :component="Popover1Demo"></Demo>
+  <Demo :component="Popover2Demo"></Demo>
+  <Demo :component="Popover3Demo"></Demo>
 </template>
 
 <script lang="ts">
-import Popover from '../lib/Popover.vue';
-import Button from '../lib/Button.vue';
+import Demo from './Demo.vue';
+import Popover1Demo from '../components/Popover1.demo.vue'
+import Popover2Demo from '../components/Popover2.demo.vue'
+import Popover3Demo from '../components/Popover3.demo.vue'
+
 
 export default {
-  components: {Button, Popover},
-  setup(){
-    return {console}
+  components: {Demo},
+  setup() {
+    return {Popover1Demo,Popover2Demo,Popover3Demo};
   }
 };
 </script>

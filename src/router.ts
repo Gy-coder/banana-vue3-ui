@@ -1,33 +1,35 @@
 import {createRouter, createWebHashHistory} from 'vue-router';
-import Home from './views/Home.vue'
-import Doc  from './views/Doc.vue'
-import Markdown from './components/Markdown.vue'
-import SwitchPage from './components/SwitchPage.vue'
-import ButtonPage from './components/ButtonPage.vue'
-import DialogPage from './components/DialogPage.vue'
-import TabsPage from './components/TabsPage.vue'
-import IconPage from './components/IconPage.vue'
-import RadioPage from './components/RadioPage.vue'
-import ToastPage from './components/ToastPage.vue'
-import PopoverPage from './components/PopoverPage.vue'
-import LayoutPage from './components/LayoutPage.vue'
+import Home from './views/Home.vue';
+import Doc from './views/Doc.vue';
+import Markdown from './components/Markdown.vue';
+import SwitchPage from './components/SwitchPage.vue';
+import ButtonPage from './components/ButtonPage.vue';
+import DialogPage from './components/DialogPage.vue';
+import TabsPage from './components/TabsPage.vue';
+import IconPage from './components/IconPage.vue';
+import RadioPage from './components/RadioPage.vue';
+import ToastPage from './components/ToastPage.vue';
+import PopoverPage from './components/PopoverPage.vue';
+import LayoutPage from './components/LayoutPage.vue';
+import InputPage from './components/InputPage.vue';
 //@ts-ignore
-import install from './markdown/install.md'
+import install from './markdown/install.md';
 //@ts-ignore
-import intro from './markdown/intro.md'
+import intro from './markdown/intro.md';
 //@ts-ignore
-import getStarted from './markdown/get-started.md'
+import getStarted from './markdown/get-started.md';
 import {h} from 'vue';
 
-const md = (content)=> h(Markdown,{content: content,key: content})
+const md = (content) => h(Markdown, {content: content, key: content});
 const history = createWebHashHistory();
 const router = createRouter({
   history,
   routes: [
     {path: '/', component: Home},
-    {path:'/doc',component:Doc,children:[
+    {
+      path: '/doc', component: Doc, children: [
         {
-          path:'',
+          path: '',
           redirect: 'doc/intro'
         },
         {
@@ -35,7 +37,7 @@ const router = createRouter({
           component: md(intro)
         },
         {
-          path:'install',
+          path: 'install',
           component: md(install)
         },
         {
@@ -67,7 +69,7 @@ const router = createRouter({
           component: RadioPage
         },
         {
-          path:'toast',
+          path: 'toast',
           component: ToastPage
         },
         {
@@ -75,11 +77,16 @@ const router = createRouter({
           component: PopoverPage
         },
         {
-          path:'layout',
+          path: 'layout',
           component: LayoutPage,
+        },
+        {
+          path: 'input',
+          component: InputPage
         }
-      ]}
+      ]
+    }
   ]
 });
 
-export default router
+export default router;

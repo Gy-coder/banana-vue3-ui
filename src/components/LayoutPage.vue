@@ -1,68 +1,39 @@
 <template>
-  <Layout style="height: 100vh">
-    <Header class="demo">header</Header>
-    <Layout>
-      <Content class="demo">content</Content>
-    </Layout>
-    <Footer class="demo">footer</Footer>
-  </Layout>
-  <br>
-  <Layout style="height: 100vh">
-    <Header class="demo">header</Header>
-    <Layout>
-      <Sider class="demo">Sider</Sider>
-      <Content class="demo">content</Content>
-    </Layout>
-    <Footer class="demo">footer</Footer>
-  </Layout>
-  <br>
-  <Layout style="height: 100vh">
-    <Header class="demo">header</Header>
-    <Layout>
-      <Content class="demo">content</Content>
-      <Sider class="demo">Sider</Sider>
-    </Layout>
-    <Footer class="demo">footer</Footer>
-  </Layout>
-  <br>
-  <Layout style="height: 100vh">
-    <Sider class="demo">Sider</Sider>
-    <Layout>
-      <Header class="demo">header</Header>
-      <Content class="demo">content</Content>
-      <Footer class="demo">footer</Footer>
-    </Layout>
-  </Layout>
+  <Demo :component="Layout1Demo"></Demo>
+  <Demo :component="Layout2Demo"></Demo>
+  <Demo :component="Layout3Demo"></Demo>
+  <Demo :component="Layout4Demo"></Demo>
 </template>
 <script lang="ts">
-import Layout from '../lib/Layout.vue';
-import Header from '../lib/Header.vue';
-import Content from '../lib/Content.vue';
-import Footer from '../lib/Footer.vue';
-import Sider from '../lib/Sider.vue';
+import Demo from './Demo.vue';
+import Layout1Demo from './Layout1.demo.vue';
+import Layout2Demo from './Layout2.demo.vue';
+import Layout3Demo from './Layout3.demo.vue';
+import Layout4Demo from './Layout4.demo.vue';
 
 export default {
-  components: {Sider, Footer, Content, Header, Layout}
+  components: {Demo},
+  setup() {
+    return {Layout1Demo, Layout2Demo, Layout3Demo, Layout4Demo};
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-.demo{
-  min-height: 100px;
-  color: white;
-}
-.g-layout-sider{
+.g-layout-sider {
   background: #41a2e6;
   width: 200px;
 }
-.g-layout-header{
+
+.g-layout-header {
   background: #80bde8;
-}
-.g-layout-footer{
-  background: #80bde8;
-}
-.g-layout-content{
-  background: #1f90e6;
 }
 
+.g-layout-footer {
+  background: #80bde8;
+}
+
+.g-layout-content {
+  background: #1f90e6;
+}
 </style>
