@@ -12,6 +12,7 @@ import ToastPage from './components/ToastPage.vue';
 import PopoverPage from './components/PopoverPage.vue';
 import LayoutPage from './components/LayoutPage.vue';
 import InputPage from './components/InputPage.vue';
+import CollpasePage from './components/CollapsePage.vue';
 //@ts-ignore
 import install from './markdown/install.md';
 //@ts-ignore
@@ -83,6 +84,10 @@ const router = createRouter({
         {
           path: 'input',
           component: InputPage
+        },
+        {
+          path: 'collapse',
+          component: CollpasePage,
         }
       ]
     }
