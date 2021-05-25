@@ -28,19 +28,20 @@ export default {
     const instance = getCurrentInstance();
     const eventBus = inject('eventbus');
     onMounted(() => {
-      eventBus.on('update:selected', (name) => {
-        if (name !== props.name) {
-          close();
+      eventBus.on('update:selected',(names)=>{
+        console.log(names);
+        if(names.indexOf(props.name) >= 0){
+          open.value = true
         }else{
-          show()
+          open.value = false
         }
-      });
+      })
     });
     const toggle = () => {
       if (open.value === true) {
-        close()
+        eventBus.emit('remove:selected',props.name)
       } else {
-        eventBus.emit('update:selected',props.name)
+        eventBus.emit('add:selected',props.name)
       }
     };
     const close = () => {
@@ -65,6 +66,7 @@ $border-radius: 4px;
     display: flex;
     align-items: center;
     padding: 0 8px;
+    cursor: pointer;
   }
 
   &:first-child {

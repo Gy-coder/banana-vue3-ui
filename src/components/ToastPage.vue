@@ -8,7 +8,6 @@
       onMaskClick:()=> console.log('onMaskClick'),
       afterClose: ()=> console.log('afterClose'),
       clickClose,
-      style: {background: '#46abfc',color: 'white'},
     })">show toast 2
     </Button>
   </div>
