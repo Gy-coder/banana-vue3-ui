@@ -6,6 +6,8 @@
            :value="value"
            :disabled="disabled"
            :readonly="readonly"
+           @input="handleChange"
+           ref="input"
     >
     <template v-if="error">
       <Icon name="i-info"
@@ -19,6 +21,7 @@
 
 <script lang="ts">
 import Icon from './Icon.vue';
+import {onMounted, ref} from 'vue';
 
 export default {
   components: {Icon},
@@ -37,6 +40,16 @@ export default {
     error: {
       type: String,
     }
+  },
+  setup(props,context){
+    const input= ref<HTMLInputElement>(null)
+    onMounted(()=>{
+      console.log(input.value);
+    })
+    const handleChange = ()=>{
+      context.emit('update:value',input.value.value)
+    }
+    return {input,handleChange}
   }
 };
 </script>
