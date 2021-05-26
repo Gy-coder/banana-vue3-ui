@@ -1,27 +1,97 @@
 <template>
-  <div :style="{border: '1px solid black'}">
-    <Row gutter="20">
-      <Col>1</Col>
-      <Col>2</Col>
+  <div :style="{border: '1px solid red'}">
+    <Row>
+      <Col :span="12">
+        <div class="gutter-box">
+          col-6
+        </div>
+      </Col>
+      <Col :span="10" offset="2">
+        <div class="gutter-box">
+          col-6
+        </div>
+      </Col>
     </Row>
-    <Row gutter="20">
-      <Col>1</Col>
-      <Col>2</Col>
-      <Col>3</Col>
+    <Row>
+      <Col :span="8">
+        <div class="gutter-box">
+          col-6
+        </div>
+      </Col>
+      <Col :span="8">
+        <div class="gutter-box">
+          col-6
+        </div>
+      </Col>
+      <Col :span="8">
+        <div class="gutter-box">
+          col-6
+        </div>
+      </Col>
     </Row>
-    <Row gutter="20">
-      <Col>1</Col>
-      <Col>2</Col>
-      <Col>3</Col>
-      <Col>4</Col>
+    <Row>
+      <Col :span="6">
+        <div class="gutter-box">
+          col-6
+        </div>
+      </Col>
+      <Col :span="6">
+        <div class="gutter-box">
+          col-6
+        </div>
+      </Col>
+      <Col :span="6">
+        <div class="gutter-box">
+          col-6
+        </div>
+      </Col>
+      <Col :span="6">
+        <div class="gutter-box">
+          col-6
+        </div>
+      </Col>
     </Row>
-    <Row gutter="20">
-      <Col span="2">1</Col>
-      <Col span="22">2</Col>
+  </div>
+  <div class="gutter-example" :style="{  border: '1px solid red'}">
+    <Row :gutter="16">
+      <Col class="gutter-row" :span="6">
+        <div class="gutter-box">
+          col-6
+        </div>
+      </Col>
+      <Col class="gutter-row" :span="6">
+        <div class="gutter-box">
+          col-6
+        </div>
+      </Col>
+      <Col class="gutter-row" :span="6">
+        <div class="gutter-box">
+          col-6
+        </div>
+      </Col>
+      <Col class="gutter-row" :span="6">
+        <div class="gutter-box">
+          col-6
+        </div>
+      </Col>
     </Row>
+  </div>
+  <div>
     <Row gutter="20">
-      <Col span="3">1</Col>
-      <Col span="18" offset="3">2</Col>
+      <Col span="12">
+        <div class="gutter-box">
+          <Row align="center">
+            <Col>1</Col>
+            <Col>2</Col>
+            <Col>3</Col>
+          </Row>
+        </div>
+      </Col>
+      <Col span="12">
+        <div class="gutter-box">
+          1234
+        </div>
+      </Col>
     </Row>
   </div>
 </template>
@@ -34,3 +104,20 @@ export default {
   components: {Col, Row}
 };
 </script>
+
+<style lang="scss" scoped>
+.gutter-example > > > .ant-row > div {
+  background: transparent;
+  border: 0;
+}
+
+.gutter-box {
+  background: #00a0e9;
+  height: 66px;
+  padding: 5px 0;
+  border: 1px solid green;
+}
+
+.g-col {
+}
+</style>

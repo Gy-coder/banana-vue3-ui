@@ -1,7 +1,8 @@
 <template>
   <div
       class="g-row"
-      :style="rowStyle"
+      :style="{marginLeft: -gutter / 2 + 'px',marginRight: -gutter / 2 + 'px'}"
+      :class="rowClass"
   >
     <slot></slot>
   </div>
@@ -15,15 +16,28 @@ export default {
   props: {
     gutter: {
       type: [Number, String]
+    },
+    align: {
+      type: String,
+      default: 'left',
+      validator(value) {
+        return ['left', 'center', 'right'].indexOf(value) >= 0;
+      }
     }
   },
   setup(props, context) {
-    const {gutter} = props;
+    const {gutter, align} = props;
     provide('gutter', props.gutter);
     const rowStyle = computed(() => {
-      return {marginLeft: -gutter / 2 + 'px', marginRight: -gutter / 2 + 'px'};
+      return {
+        marginLeft: -gutter / 2 + 'px',
+        marginRight: -gutter / 2 + 'px'
+      };
     });
-    return {rowStyle}
+    const rowClass = computed(() => {
+      return {[`align-${align}`]: align};
+    });
+    return {rowStyle, rowClass};
   }
 };
 </script>
@@ -31,5 +45,17 @@ export default {
 <style lang="scss">
 .g-row {
   display: flex;
+
+  &.align-left {
+    justify-content: flex-start;
+  }
+
+  &.align-center {
+    justify-content: center;
+  }
+
+  &.align-right {
+    justify-content: flex-end;
+  }
 }
 </style>

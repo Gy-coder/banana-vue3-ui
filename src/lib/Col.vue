@@ -3,7 +3,7 @@
        :class="colClasses"
        :style="colStyle"
   >
-    <slot></slot>
+      <slot></slot>
   </div>
 </template>
 
@@ -24,8 +24,8 @@ export default {
     const gutter = inject('gutter');
     const colStyle = computed(() => {
       return {
-        paddingLeft: -gutter / 2,
-        paddingRight: -gutter / 2
+        paddingLeft: gutter / 2 + 'px',
+        paddingRight: gutter / 2 + 'px'
       };
     });
     const colClasses = computed(() => {
@@ -41,11 +41,6 @@ export default {
 
 <style lang="scss">
 .g-col {
-  height: 100px;
-  //background: grey;
-  width: 50%;
-  //border: 1px solid red;
-  padding: 0 10px;
   @for $n from 1 through 24 {
     &.#{span-}#{$n} {
       width: ($n / 24) * 100%
