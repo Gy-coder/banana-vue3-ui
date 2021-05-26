@@ -13,6 +13,7 @@ import PopoverPage from './components/PopoverPage.vue';
 import LayoutPage from './components/LayoutPage.vue';
 import InputPage from './components/InputPage.vue';
 import CollpasePage from './components/CollapsePage.vue';
+import GridPage from './components/GridPage.vue';
 //@ts-ignore
 import install from './markdown/install.md';
 //@ts-ignore
@@ -88,6 +89,10 @@ const router = createRouter({
         {
           path: 'collapse',
           component: CollpasePage,
+        },
+        {
+          path: 'grid',
+          component: GridPage,
         }
       ]
     }
