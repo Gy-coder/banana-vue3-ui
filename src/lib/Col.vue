@@ -1,29 +1,59 @@
 <template>
-  <div class="g-col" :class="{[`g-col-${span}`]:span}">
+  <div class="g-col"
+       :class="colClasses"
+       :style="colStyle"
+  >
     <slot></slot>
   </div>
 </template>
 
 <script lang="ts">
+import {computed, inject} from 'vue';
+
 export default {
-  props:{
-    span:{
-      type: [Number,String]
-    }
+  props: {
+    span: {
+      type: [Number, String]
+    },
+    offset: {
+      type: [String, Number]
+    },
+  },
+  setup(props, context) {
+    const {span, offset} = props;
+    const gutter = inject('gutter');
+    const colStyle = computed(() => {
+      return {
+        paddingLeft: -gutter / 2,
+        paddingRight: -gutter / 2
+      };
+    });
+    const colClasses = computed(() => {
+      return {
+        [`span-${span}`]: span,
+        [`offset-${offset}`]: offset
+      };
+    });
+    return {gutter, colStyle, colClasses};
   }
 };
 </script>
 
 <style lang="scss">
-$classPrefix: g-col-;
 .g-col {
   height: 100px;
-  background: grey;
+  //background: grey;
   width: 50%;
-  border: 1px solid red;
+  //border: 1px solid red;
+  padding: 0 10px;
   @for $n from 1 through 24 {
-    &.#{$classPrefix}#{$n} {
+    &.#{span-}#{$n} {
       width: ($n / 24) * 100%
+    }
+  }
+  @for $n from 1 through 24 {
+    &.#{offset-}#{$n} {
+      margin-left: ($n / 24) * 100%
     }
   }
 }
