@@ -23,7 +23,7 @@ export default {
       validator(value) {
         return ['left', 'center', 'right'].indexOf(value) >= 0;
       }
-    }
+    },
   },
   setup(props, context) {
     const {gutter, align} = props;
@@ -45,6 +45,7 @@ export default {
 <style lang="scss">
 .g-row {
   display: flex;
+  flex-wrap: wrap;
 
   &.align-left {
     justify-content: flex-start;

@@ -1,14 +1,26 @@
 <template>
   <div :style="{border: '1px solid red'}">
     <Row>
-      <Col :span="12">
+      <Col :span="2"
+           :phone="{span:12}"
+           :ipad="{span:8}"
+           :narrow-pc="{span:4}"
+           :pc="{span:2}"
+           :wide-pc="{span:1}"
+      >
         <div class="gutter-box">
-          col-6
+          col-12
         </div>
       </Col>
-      <Col :span="10" offset="2">
+      <Col :span="22"
+           :phone="{span:12}"
+           :ipad="{span:16}"
+           :narrow-pc="{span:20}"
+           :pc="{span:22}"
+           :wide-pc="{span: 23}"
+      >
         <div class="gutter-box">
-          col-6
+          col-12
         </div>
       </Col>
     </Row>
