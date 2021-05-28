@@ -1,108 +1,51 @@
 <template>
   <div :style="{border: '1px solid red'}">
     <Row>
-      <Col :span="2"
-           :phone="{span:12}"
-           :ipad="{span:8}"
-           :narrow-pc="{span:4}"
-           :pc="{span:2}"
-           :wide-pc="{span:1}"
+      <Col span="24"
+           :narrow-pc="{span:8}"
+           :pc="{span: 4}"
       >
-        <div class="gutter-box">
-          col-12
-        </div>
+        <div class="gutter-box"></div>
       </Col>
-      <Col :span="22"
-           :phone="{span:12}"
-           :ipad="{span:16}"
-           :narrow-pc="{span:20}"
-           :pc="{span:22}"
-           :wide-pc="{span: 23}"
+      <Col span="24"
+           :narrow-pc="{span:8}"
+           :pc="{span: 4}"
       >
-        <div class="gutter-box">
-          col-12
-        </div>
+        <div class="gutter-box"></div>
       </Col>
-    </Row>
-    <Row>
-      <Col :span="8">
-        <div class="gutter-box">
-          col-6
-        </div>
+      <Col span="24"
+           :narrow-pc="{span:8}"
+           :pc="{span: 4}"
+      >
+        <div class="gutter-box"></div>
       </Col>
-      <Col :span="8">
-        <div class="gutter-box">
-          col-6
-        </div>
+      <Col span="24"
+           :narrow-pc="{span:8}"
+           :pc="{span: 4}"
+      >
+        <div class="gutter-box"></div>
       </Col>
-      <Col :span="8">
-        <div class="gutter-box">
-          col-6
-        </div>
+      <Col span="24"
+           :narrow-pc="{span:8}"
+           :pc="{span: 4}"
+      >
+        <div class="gutter-box"></div>
       </Col>
-    </Row>
-    <Row>
-      <Col :span="6">
-        <div class="gutter-box">
-          col-6
-        </div>
-      </Col>
-      <Col :span="6">
-        <div class="gutter-box">
-          col-6
-        </div>
-      </Col>
-      <Col :span="6">
-        <div class="gutter-box">
-          col-6
-        </div>
-      </Col>
-      <Col :span="6">
-        <div class="gutter-box">
-          col-6
-        </div>
+      <Col span="24"
+           :narrow-pc="{span:8}"
+           :pc="{span: 4}"
+      >
+        <div class="gutter-box"></div>
       </Col>
     </Row>
   </div>
-  <div class="gutter-example" :style="{  border: '1px solid red'}">
-    <Row :gutter="16">
-      <Col class="gutter-row" :span="6">
-        <div class="gutter-box">
-          col-6
-        </div>
+  <div :style="{border: '1px solid blue'}">
+    <Row>
+      <Col span="12" offset="12" :pc="{span:11,offset:1}">
+        <div class="gutter-box"></div>
       </Col>
-      <Col class="gutter-row" :span="6">
-        <div class="gutter-box">
-          col-6
-        </div>
-      </Col>
-      <Col class="gutter-row" :span="6">
-        <div class="gutter-box">
-          col-6
-        </div>
-      </Col>
-      <Col class="gutter-row" :span="6">
-        <div class="gutter-box">
-          col-6
-        </div>
-      </Col>
-    </Row>
-  </div>
-  <div>
-    <Row gutter="20">
-      <Col span="12">
-        <div class="gutter-box">
-          <Row align="center">
-            <Col>1</Col>
-            <Col>2</Col>
-            <Col>3</Col>
-          </Row>
-        </div>
-      </Col>
-      <Col span="12">
-        <div class="gutter-box">
-          1234
-        </div>
+      <Col span="12" offset="12" :pc="{span:11,offset:1}">
+        <div class="gutter-box"></div>
       </Col>
     </Row>
   </div>
