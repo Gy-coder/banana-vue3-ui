@@ -14,6 +14,7 @@ import LayoutPage from './components/LayoutPage.vue';
 import InputPage from './components/InputPage.vue';
 import CollpasePage from './components/CollapsePage.vue';
 import GridPage from './components/GridPage.vue';
+import PaginationPage from './components/PaginationPage.vue';
 //@ts-ignore
 import install from './markdown/install.md';
 //@ts-ignore
@@ -93,6 +94,10 @@ const router = createRouter({
         {
           path: 'grid',
           component: GridPage,
+        },
+        {
+          path: 'pagination',
+          component: PaginationPage,
         }
       ]
     }
