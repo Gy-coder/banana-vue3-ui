@@ -1,19 +1,40 @@
 <template>
   <div class="g-pagination">
-    <span
-        v-for="page in pages"
-        class="g-pagination-item"
-        :class="{active: page === currentPage,separator: page === '···'}"
-    >
-      {{ page }}
+    <span class="g-pagination-nav prev" :class="{'disabled': currentPage === 1}">
+      <Icon name="i-left" />
+    </span>
+    <template v-for="page in pages">
+      <span
+          class="g-pagination-item active"
+          v-if="page === currentPage"
+      >
+        {{ page }}
+      </span>
+      <span
+          class="g-pagination-separator"
+          v-else-if="page === '···'"
+      >
+        <Icon name="i-dot"/>
+      </span>
+      <span
+          class="g-pagination-item"
+          v-else
+      >
+        {{ page }}
+      </span>
+    </template>
+    <span class="g-pagination-nav next" :class="{'disabled': currentPage === totalPage}">
+      <Icon name="i-right" />
     </span>
   </div>
 </template>
 
 <script lang="ts">
 import {computed} from 'vue';
+import Icon from '../lib/Icon.vue';
 
 export default {
+  components: {Icon},
   props: {
     totalPage: {
       type: Number,
@@ -34,7 +55,7 @@ export default {
       let pageArr = unique([1, totalPage,
         currentPage, currentPage - 1, currentPage - 2,
         currentPage + 1, currentPage + 2]
-          .sort((a, b) => a - b).filter(item => item > 0))
+          .sort((a, b) => a - b).filter(item => item >= 1 && item <= totalPage))
           .reduce((prev, cur, index, arr) => {
             if (arr[index + 1] && arr[index + 1] - arr[index] > 1) {
               prev.push(cur);
@@ -46,7 +67,6 @@ export default {
           }, []);
       return pageArr;
     });
-    console.log(pages.value);
     return {pages};
   }
 };
@@ -65,28 +85,57 @@ function unique(nums) {
 $grey: #eee;
 $border-radius: 4px;
 $blue: #40a9ff;
-.g-pagination{
-  &-item{
-    font-size: 14px;
-    border: 1px solid $grey;
+$width: 32px;
+$height: 32px;
+$font-size: 14px;
+.g-pagination {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  &-separator {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    font-size: $font-size;
+    margin: 0 4px;
+  }
+
+  &-item {
+    font-size: $font-size;
+    border: 1px solid #e1e1e1;
     border-radius: $border-radius;
     padding: 0 4px;
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    min-width: 32px;
-    height: 32px;
+    min-width: $width;
+    height: $height;
     margin: 0 4px;
     cursor: pointer;
-    &.separator{
-      border: none;
-    }
-    &.active,&:hover{
+
+    &.active, &:hover {
       border-color: $blue;
       color: $blue;
     }
-    &.active{
+
+    &.active {
       cursor: default;
+    }
+  }
+  &-nav{
+    background: $grey;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $border-radius;
+    width: $height;
+    height: $height;
+    margin: 0 4px;
+    font-size: $font-size;
+    &.disabled{
+      background: darken($grey,20%);
     }
   }
 }

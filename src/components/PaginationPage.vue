@@ -7,6 +7,10 @@
       :total-page="5"
       :current-page="1"
   />
+  <Pagination
+      :total-page="15"
+      :current-page="15"
+  />
 </template>
 
 
