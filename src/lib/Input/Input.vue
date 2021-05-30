@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import Icon from './Icon.vue';
+import Icon from '../Icon/Icon.vue';
 import {onMounted, ref} from 'vue';
 
 export default {
@@ -43,9 +43,6 @@ export default {
   },
   setup(props,context){
     const input= ref<HTMLInputElement>(null)
-    onMounted(()=>{
-      console.log(input.value);
-    })
     const handleChange = ()=>{
       context.emit('update:value',input.value.value)
     }

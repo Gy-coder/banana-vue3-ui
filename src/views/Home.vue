@@ -41,7 +41,7 @@
 
 <script lang="ts">
 import TopNav from '../components/TopNav.vue';
-import Icon from '../lib/Icon.vue';
+import Icon from '../lib/Icon/Icon.vue';
 
 export default {
   components: {

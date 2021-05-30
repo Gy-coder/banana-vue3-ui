@@ -6,11 +6,11 @@
 
 <script lang="ts">
 import {ref} from 'vue';
-import Layout from '../lib/Layout.vue';
-import Header from '../lib/Header.vue';
-import Content from '../lib/Content.vue';
-import Footer from '../lib/Footer.vue';
-import Sider from '../lib/Sider.vue';
+import Layout from './Layout.vue';
+import Header from './Header.vue';
+import Content from './Content.vue';
+import Footer from './Footer.vue';
+import Sider from './Sider.vue';
 
 export default {
   setup(props,context){

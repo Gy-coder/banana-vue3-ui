@@ -13,8 +13,8 @@
   selected: {{selected2}}
 </template>
 <script>
-import Collapse from "../lib/Collapse.vue";
-import CollapseItem from "../lib/CollapseItem.vue";
+import Collapse from "../lib/Collapse/Collapse.vue";
+import CollapseItem from "../lib/Collapse/CollapseItem.vue";
 import {ref} from "vue";
 export default {
   components: {CollapseItem, Collapse},

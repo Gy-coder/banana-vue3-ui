@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import EventBus from '../util/eventbus';
+import EventBus from '../../util/eventbus';
 import CollapseItem from './CollapseItem.vue'
 import {onMounted, provide} from 'vue';
 
@@ -32,7 +32,6 @@ export default {
       eventBus.emit('update:selected',props.selected)
       eventBus.on('add:selected',(name)=>{
         let selectedCopy = JSON.parse(JSON.stringify(props.selected))
-        console.log(selectedCopy);
         if(props.singled){
           selectedCopy = [name]
         }else{

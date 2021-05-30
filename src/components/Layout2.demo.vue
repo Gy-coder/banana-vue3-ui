@@ -15,11 +15,11 @@ Sider在左边
 </template>
 
 <script lang="ts">
-import Layout from '../lib/Layout.vue';
-import Header from '../lib/Header.vue';
-import Content from '../lib/Content.vue';
-import Footer from '../lib/Footer.vue';
-import Sider from '../lib/Sider.vue';
+import Layout from '../lib/Layout/Layout.vue';
+import Header from '../lib/Layout/Header.vue';
+import Content from '../lib/Layout/Content.vue';
+import Footer from '../lib/Layout/Footer.vue';
+import Sider from '../lib/Layout/Sider.vue';
 
 export default {
   components: {Sider, Footer, Content, Header, Layout}

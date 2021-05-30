@@ -52,8 +52,8 @@
 </template>
 
 <script lang="ts">
-import Row from '../lib/Row.vue';
-import Col from '../lib/Col.vue';
+import Row from '../lib/Grid/Row.vue';
+import Col from '../lib/Grid/Col.vue';
 
 export default {
   components: {Col, Row}

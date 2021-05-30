@@ -14,9 +14,9 @@
 </template>
 
 <script lang="ts">
-import ToastComponent from '../lib/Toast.vue';
-import {Toast} from '../lib/toast.ts';
-import Button from '../lib/Button.vue';
+import ToastComponent from '../lib/Toast/Toast.vue';
+import {Toast} from '../lib/Toast/toast.ts';
+import Button from '../lib/Button/Button.vue';
 import {ref} from 'vue';
 
 export default {

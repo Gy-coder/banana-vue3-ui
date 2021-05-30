@@ -14,7 +14,7 @@
 </template>
 <script lang="ts">
 import {inject, Ref} from 'vue';
-import Icon from '../lib/Icon.vue';
+import Icon from '../lib/Icon/Icon.vue';
 
 export default {
   props: {

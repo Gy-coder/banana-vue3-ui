@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import Tab from '../lib/Tab.vue';
+import Tab from './Tab.vue';
 import {computed, onMounted, onUpdated, ref} from 'vue';
 
 export default {

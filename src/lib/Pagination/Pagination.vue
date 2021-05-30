@@ -40,7 +40,7 @@
 
 <script lang="ts">
 import {computed} from 'vue';
-import Icon from '../lib/Icon.vue';
+import Icon from '../Icon/Icon.vue';
 
 export default {
   components: {Icon},

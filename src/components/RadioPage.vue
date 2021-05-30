@@ -15,8 +15,8 @@
 
 
 <script lang="ts">
-import Radio from '../lib/Radio.vue';
-import RadioGroup from '../lib/RadioGroup.vue';
+import Radio from '../lib/Radio/Radio.vue';
+import RadioGroup from '../lib/Radio/RadioGroup.vue';
 import {ref} from 'vue';
 
 export default {

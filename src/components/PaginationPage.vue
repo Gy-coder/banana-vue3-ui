@@ -16,7 +16,7 @@
 
 
 <script lang="ts">
-import Pagination from '../lib/Pagination.vue';
+import Pagination from '../lib/Pagination/Pagination.vue';
 import {ref} from 'vue';
 
 export default {

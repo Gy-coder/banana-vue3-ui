@@ -29,7 +29,6 @@ export default {
     const eventBus = inject('eventbus');
     onMounted(() => {
       eventBus.on('update:selected',(names)=>{
-        console.log(names);
         if(names.indexOf(props.name) >= 0){
           open.value = true
         }else{
