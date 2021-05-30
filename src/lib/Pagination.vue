@@ -1,7 +1,11 @@
 <template>
   <div class="g-pagination">
-    <span class="g-pagination-nav prev" :class="{'disabled': currentPage === 1}">
-      <Icon name="i-left" />
+    <span
+        class="g-pagination-nav prev"
+        :class="{'disabled': currentPage === 1}"
+        @click="onClickPage(currentPage - 1)"
+    >
+      <Icon name="i-left"/>
     </span>
     <template v-for="page in pages">
       <span
@@ -18,13 +22,18 @@
       </span>
       <span
           class="g-pagination-item"
+          @click="onClickPage(page)"
           v-else
       >
         {{ page }}
       </span>
     </template>
-    <span class="g-pagination-nav next" :class="{'disabled': currentPage === totalPage}">
-      <Icon name="i-right" />
+    <span
+        class="g-pagination-nav next"
+        :class="{'disabled': currentPage === totalPage}"
+        @click="onClickPage(currentPage + 1)"
+    >
+      <Icon name="i-right"/>
     </span>
   </div>
 </template>
@@ -51,11 +60,12 @@ export default {
   },
   setup(props, context) {
     const {totalPage, currentPage} = props;
-    const pages = computed(() => {
+    let pages = computed(() => {
       let pageArr = unique([1, totalPage,
         currentPage, currentPage - 1, currentPage - 2,
         currentPage + 1, currentPage + 2]
-          .sort((a, b) => a - b).filter(item => item >= 1 && item <= totalPage))
+          .sort((a, b) => a - b)
+          .filter(item => item >= 1 && item <= totalPage))
           .reduce((prev, cur, index, arr) => {
             if (arr[index + 1] && arr[index + 1] - arr[index] > 1) {
               prev.push(cur);
@@ -67,7 +77,12 @@ export default {
           }, []);
       return pageArr;
     });
-    return {pages};
+    const onClickPage = (n) => {
+      if (n >= 1 && n <= totalPage) {
+        context.emit('update:currentPage', n);
+      }
+    };
+    return {pages, onClickPage};
   }
 };
 
@@ -124,7 +139,8 @@ $font-size: 14px;
       cursor: default;
     }
   }
-  &-nav{
+
+  &-nav {
     background: $grey;
     display: inline-flex;
     align-items: center;
@@ -134,8 +150,9 @@ $font-size: 14px;
     height: $height;
     margin: 0 4px;
     font-size: $font-size;
-    &.disabled{
-      background: darken($grey,20%);
+
+    &.disabled {
+      background: darken($grey, 20%);
     }
   }
 }

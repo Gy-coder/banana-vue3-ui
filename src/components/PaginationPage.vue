@@ -1,8 +1,9 @@
 <template>
   <Pagination
       :total-page="10"
-      :current-page="5"
+      v-model:current-page="n"
   />
+  {{n}}
   <Pagination
       :total-page="5"
       :current-page="1"
@@ -16,8 +17,13 @@
 
 <script lang="ts">
 import Pagination from '../lib/Pagination.vue';
+import {ref} from 'vue';
 
 export default {
-  components: {Pagination}
+  components: {Pagination},
+  setup(){
+    const n = ref(5)
+    return {n}
+  }
 };
 </script>
