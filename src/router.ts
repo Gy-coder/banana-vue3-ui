@@ -16,6 +16,7 @@ import CollpasePage from './components/CollapsePage.vue';
 import GridPage from './components/GridPage.vue';
 import PaginationPage from './components/PaginationPage.vue';
 import SlidesPage from './components/SlidesPage.vue'
+import CascaderPage from './components/CascaderPage.vue'
 //@ts-ignore
 import install from './markdown/install.md';
 //@ts-ignore
@@ -103,6 +104,10 @@ const router = createRouter({
         {
           path: 'slides',
           component: SlidesPage
+        },
+        {
+          path: 'cascader',
+          component: CascaderPage,
         }
       ]
     }
