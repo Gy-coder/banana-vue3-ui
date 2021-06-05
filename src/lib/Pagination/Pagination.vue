@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import {computed} from 'vue';
+import {computed, toRefs} from 'vue';
 import Icon from '../Icon/Icon.vue';
 
 export default {
@@ -56,16 +56,23 @@ export default {
     hideIfOnePage: {
       type: Boolean,
       default: true,
-    }
+    },
   },
   setup(props, context) {
-    const {totalPage, currentPage} = props;
+    const {totalPage, currentPage} = toRefs(props);
     let pages = computed(() => {
-      let pageArr = unique([1, totalPage,
-        currentPage, currentPage - 1, currentPage - 2,
-        currentPage + 1, currentPage + 2]
+      if (totalPage.value <= 7) {
+        let arr = [];
+        for (let i = 0; i < totalPage.value; i++) {
+          arr.push(i + 1);
+        }
+        return arr;
+      }
+      return unique([1, totalPage.value,
+        currentPage.value, currentPage.value - 1, currentPage.value - 2,
+        currentPage.value + 1, currentPage.value + 2]
           .sort((a, b) => a - b)
-          .filter(item => item >= 1 && item <= totalPage))
+          .filter(item => item >= 1 && item <= totalPage.value))
           .reduce((prev, cur, index, arr) => {
             if (arr[index + 1] && arr[index + 1] - arr[index] > 1) {
               prev.push(cur);
@@ -75,10 +82,9 @@ export default {
             }
             return prev;
           }, []);
-      return pageArr;
     });
     const onClickPage = (n) => {
-      if (n >= 1 && n <= totalPage) {
+      if (n >= 1 && n <= totalPage.value) {
         context.emit('update:currentPage', n);
       }
     };

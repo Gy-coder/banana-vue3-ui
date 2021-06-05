@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import {computed, onBeforeUnmount, onMounted, onUnmounted, ref, withDirectives} from 'vue';
+import {onBeforeUnmount, onMounted, ref} from 'vue';
 
 export default {
   props: {
@@ -112,7 +112,7 @@ export default {
           open();
         }
       }
-    };
+    }
     return {
       visible,
       click,
