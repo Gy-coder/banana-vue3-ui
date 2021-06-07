@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import CascaderItems from './CascaderItems.vue';
-import {computed, Ref, ref, toRefs} from 'vue';
+import {ref} from 'vue';
 
 interface Props {
   label: string,
