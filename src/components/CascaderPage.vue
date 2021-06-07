@@ -20,10 +20,6 @@ export default {
                 value: 'xihu',
                 label: 'West Lake',
               },
-              {
-                value: 'xihu',
-                label: 'West Lake',
-              },
             ],
           },
         ],
