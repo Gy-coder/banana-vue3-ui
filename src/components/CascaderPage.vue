@@ -1,15 +1,16 @@
 <template>
   <p>1111111</p>
-  <Cascader popover-height="200px" :data-source="option" popover-class-name="xxx"/>
+  {{selected}}
+  <Cascader popover-height="200px" :data-source="option" :selected="selected" @update:selected="selected = $event"/>
   <p>2222222</p>
 </template>
 <script lang="ts">
-import {reactive} from 'vue'
+import {reactive, ref} from 'vue';
 import Cascader from "../lib/Cascader/Cascader.vue";
 export default {
   components: {Cascader},
   setup(){
-    const option = reactive([
+    const option = ref([
       {
         value: 'zhejiang',
         label: 'Zhejiang',
@@ -43,7 +44,9 @@ export default {
         ],
       },
     ],)
-    return {option}
+    const selected = ref([])
+
+    return {option,selected}
   }
 }
 </script>

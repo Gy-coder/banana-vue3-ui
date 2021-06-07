@@ -1,19 +1,29 @@
 <template>
   <div class="g-cascader-item" :style="{height: height}">
+    <div>
+      selected:{{selected && selected[level] && selected[level].label}}
+      level:{{level}}
+    </div>
     <div class="left">
-      <div v-for="item in items" class="label" @click="leftSelected = item">
+      <div v-for="item in items" class="label" @click="onClickLabel(item)">
         {{ item.label }}
         <icon class="icon" name="i-rightArrow" v-if="item.children"></icon>
       </div>
     </div>
     <div class="right" v-if="rightItems">
-      <CascaderItems :items="rightItems" :height="height"></CascaderItems>
+      <CascaderItems
+          :items="rightItems"
+          :height="height"
+          :level="level + 1"
+          :selected="selected"
+          @update:selected="onUpdateSelected"
+      ></CascaderItems>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import {computed, ref} from 'vue';
+import {computed, ref, toRefs,toRaw} from 'vue';
 import Icon from '../Icon/Icon.vue';
 
 interface Props {
@@ -28,18 +38,34 @@ export default {
     items: {
       type: Array
     },
-    height: String
+    height: String,
+    selected:{
+      type: Array,
+      default:()=>{return []}
+    },
+    level:{
+      type: Number,
+      default:0
+    }
   },
   setup(props, context) {
-    const leftSelected = ref<Props | null>(null);
     const rightItems = computed(() => {
-      if (leftSelected.value && leftSelected.value.children) {
-        return leftSelected.value.children;
+      let curSelected = props.selected[props.level]
+      if (curSelected && curSelected.children) {
+        return curSelected.children;
       } else {
         return null;
       }
     });
-    return {leftSelected, rightItems};
+    const onClickLabel = (item)=> {
+      let copy = JSON.parse(JSON.stringify(props.selected))
+      copy[props.level] = item
+      context.emit('update:selected',copy)
+    }
+    const onUpdateSelected = (newSelected)=>{
+      context.emit('update:selected',newSelected)
+    }
+    return {rightItems,onClickLabel,onUpdateSelected};
   }
 };
 </script>

@@ -4,7 +4,12 @@
       <slot></slot>
     </div>
     <div class="g-cascader-popover-wrapper" v-if="popVisible">
-      <CascaderItems :items="dataSource" :height="popoverHeight"></CascaderItems>
+      <CascaderItems
+          :items="dataSource"
+          :height="popoverHeight"
+          :selected="selected"
+          @update:selected="onUpdate"
+      ></CascaderItems>
     </div>
   </div>
 </template>
@@ -20,10 +25,17 @@ export default {
       required: true,
     },
     popoverHeight: String,
+    selected:{
+      type: Array,
+      default:()=>{return []}
+    }
   },
   setup(props, context) {
     const popVisible = ref(false);
-    return {popVisible};
+    const onUpdate = (newSelected)=>{
+      context.emit('update:selected',newSelected)
+    }
+    return {popVisible,onUpdate};
   }
 };
 </script>
