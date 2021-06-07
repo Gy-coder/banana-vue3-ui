@@ -12,13 +12,6 @@
 <script lang="ts">
 import CascaderItems from './CascaderItems.vue';
 import {ref} from 'vue';
-
-interface Props {
-  label: string,
-  value: [string, number]
-  children?: Props[],
-}
-
 export default {
   components: {CascaderItems},
   props: {
