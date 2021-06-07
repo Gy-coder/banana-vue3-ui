@@ -1,5 +1,7 @@
 <template>
-  <Cascader :data-source="option"/>
+  <p>1111111</p>
+  <Cascader popover-height="200px" :data-source="option" popover-class-name="xxx"/>
+  <p>2222222</p>
 </template>
 <script lang="ts">
 import {reactive} from 'vue'
@@ -45,3 +47,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.xxx{
+  border: 1px solid red;
+}
+</style>

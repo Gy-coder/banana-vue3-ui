@@ -1,18 +1,20 @@
 <template>
-  <div class="g-cascader-item">
+  <div class="g-cascader-item" :style="{height: height}">
     <div class="left">
       <div v-for="item in items" class="label" @click="leftSelected = item">
         {{ item.label }}
+        <icon class="icon" name="i-rightArrow" v-if="item.children"></icon>
       </div>
     </div>
     <div class="right" v-if="rightItems">
-      <CascaderItems :items="rightItems"></CascaderItems>
+      <CascaderItems :items="rightItems" :height="height"></CascaderItems>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import {computed, ref} from 'vue';
+import Icon from '../Icon/Icon.vue';
 
 interface Props {
   label: string,
@@ -21,10 +23,12 @@ interface Props {
 }
 
 export default {
+  components: {Icon},
   props: {
     items: {
       type: Array
-    }
+    },
+    height: String
   },
   setup(props, context) {
     const leftSelected = ref<Props | null>(null);
@@ -45,11 +49,23 @@ export default {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+  height: 100px;
   .left{
-    border: 1px solid red;
+    height: 100%;
+    padding: .3em 0;
   }
   .right{
-    margin-top: -1px;
+    height: 100%;
+    border-left: 1px solid lighten(#999,30%);
+  }
+  .label{
+    padding: .3em 1em;
+    display: flex;
+    align-items: center;
+    .icon {
+      margin-left: 1em;
+      transform: scale(.7);
+    }
   }
 }
 </style>
