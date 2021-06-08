@@ -1,7 +1,7 @@
 <template>
   <div class="g-cascader">
     <div class="g-cascader-trigger" @click="popVisible = !popVisible">
-      <slot></slot>
+      {{result || '&nbsp;'}}
     </div>
     <div class="g-cascader-popover-wrapper" v-if="popVisible">
       <CascaderItems
@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import CascaderItems from './CascaderItems.vue';
-import {ref} from 'vue';
+import {computed, ref} from 'vue';
 export default {
   components: {CascaderItems},
   props: {
@@ -35,7 +35,10 @@ export default {
     const onUpdate = (newSelected)=>{
       context.emit('update:selected',newSelected)
     }
-    return {popVisible,onUpdate};
+    const result = computed(()=>{
+      return props.selected.map(item => item.label).join('/')
+    })
+    return {popVisible,onUpdate,result};
   }
 };
 </script>
@@ -46,7 +49,13 @@ export default {
   &-trigger {
     border: 1px solid red;
     height: 32px;
-    width: 100px;
+    min-width: 10em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 1em;
+    border: 1px solid #eee;
+    border-radius: 4px;
   }
 
   &-popover-wrapper {
