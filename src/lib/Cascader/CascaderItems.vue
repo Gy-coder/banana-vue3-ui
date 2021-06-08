@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import {computed, ref, toRefs,toRaw} from 'vue';
+import {computed} from 'vue';
 import Icon from '../Icon/Icon.vue';
 
 interface Props {
@@ -60,6 +60,7 @@ export default {
     const onClickLabel = (item)=> {
       let copy = JSON.parse(JSON.stringify(props.selected))
       copy[props.level] = item
+      copy.splice(props.level + 1)
       context.emit('update:selected',copy)
     }
     const onUpdateSelected = (newSelected)=>{

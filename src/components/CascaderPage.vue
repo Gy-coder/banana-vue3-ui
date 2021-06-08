@@ -1,6 +1,5 @@
 <template>
   <p>1111111</p>
-  {{selected}}
   <Cascader popover-height="200px" :data-source="option" :selected="selected" @update:selected="selected = $event"/>
   <p>2222222</p>
 </template>
