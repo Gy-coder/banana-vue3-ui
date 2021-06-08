@@ -1,9 +1,5 @@
 <template>
   <div class="g-cascader-item" :style="{height: height}">
-    <div>
-      selected:{{selected && selected[level] && selected[level].label}}
-      level:{{level}}
-    </div>
     <div class="left">
       <div v-for="item in items" class="label" @click="onClickLabel(item)">
         {{ item.label }}
@@ -77,6 +73,7 @@ export default {
   align-items: flex-start;
   justify-content: flex-start;
   height: 100px;
+  overflow: scroll;
   .left{
     height: 100%;
     padding: .3em 0;
@@ -89,6 +86,13 @@ export default {
     padding: .3em 1em;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    &:hover{
+      background: #f5f7fa;
+      color: #40a9ff;
+      fill: #40a9ff;
+    }
     .icon {
       margin-left: 1em;
       transform: scale(.7);
