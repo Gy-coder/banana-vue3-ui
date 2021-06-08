@@ -9,10 +9,8 @@ import Cascader from "../lib/Cascader/Cascader.vue";
 import db from '../db.js'
 
 
-function ajax(name,level){
-  if(!name && !level){
-    return db.map(item=>{return {label: item.name}})
-  }
+function ajax(parentId = 0){
+  return db.filter(item=>item.parent_id === parentId).map(item=>{return {label: item.name}})
 }
 
 console.log(ajax())
