@@ -1,7 +1,7 @@
 <template>
   <div class="g-cascader">
     <div class="g-cascader-trigger" @click="popVisible = !popVisible">
-      {{result || '&nbsp;'}}
+      {{ result || '&nbsp;' }}
     </div>
     <div class="g-cascader-popover-wrapper" v-if="popVisible">
       <CascaderItems
@@ -17,6 +17,7 @@
 <script lang="ts">
 import CascaderItems from './CascaderItems.vue';
 import {computed, ref} from 'vue';
+
 export default {
   components: {CascaderItems},
   props: {
@@ -25,20 +26,64 @@ export default {
       required: true,
     },
     popoverHeight: String,
-    selected:{
+    selected: {
       type: Array,
-      default:()=>{return []}
+      default: () => {return [];}
+    },
+    loadData: {
+      type: Function
     }
   },
   setup(props, context) {
     const popVisible = ref(false);
-    const onUpdate = (newSelected)=>{
-      context.emit('update:selected',newSelected)
-    }
-    const result = computed(()=>{
-      return props.selected.map(item => item.label).join('/')
-    })
-    return {popVisible,onUpdate,result};
+    const onUpdate = (newSelected) => {
+      context.emit('update:selected', newSelected);
+      const lastItem = newSelected[newSelected.length - 1];
+      let simple = (children, id) => {
+        return children.filter(item => item.id === id)[0];
+      };
+      let complex = (children, id) => {
+        let noChildren = [];
+        let hasChildren = [];
+        children.forEach((item) => {
+          if (item.children) {
+            hasChildren.push(item);
+          } else {
+            noChildren.push(item);
+          }
+        });
+        let found = simple(noChildren, id);
+        if (found) {
+          return found;
+        } else {
+          found = simple(hasChildren, id);
+          if (found) {return found;}
+          else{
+            for (let i = 0; i < hasChildren.length; i++) {
+              found = complex(hasChildren[i].children, id);
+              if (found) {
+                return found;
+              }
+            }
+            return undefined;
+          }
+        }
+      };
+      const updateSource = (result) => {
+        let copy = JSON.parse(JSON.stringify(props.dataSource))
+        let toUpdate = complex(copy, lastItem.id);
+        if(toUpdate){
+          Object.assign(toUpdate, {children: result});
+        }
+        // toUpdate.children = result
+        context.emit('update:dataSource',copy)
+      };
+      props.loadData(lastItem, updateSource);
+    };
+    const result = computed(() => {
+      return props.selected.map(item => item.label).join('/');
+    });
+    return {popVisible, onUpdate, result};
   }
 };
 </script>
@@ -46,6 +91,7 @@ export default {
 <style lang="scss">
 .g-cascader {
   position: relative;
+
   &-trigger {
     border: 1px solid red;
     height: 32px;
@@ -59,12 +105,13 @@ export default {
   }
 
   &-popover-wrapper {
-    position:absolute;
+    position: absolute;
     top: 100%;
     left: 0;
     background: white;
     display: flex;
-    box-shadow: 0 0 3px rgba(0,0,0,.25);
+    box-shadow: 0 0 3px rgba(0, 0, 0, .25);
+
     > .label {
       flex-wrap: nowrap;
     }

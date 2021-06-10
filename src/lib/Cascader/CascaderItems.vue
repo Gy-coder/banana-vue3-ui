@@ -35,34 +35,35 @@ export default {
       type: Array
     },
     height: String,
-    selected:{
+    selected: {
       type: Array,
-      default:()=>{return []}
+      default: () => {return [];}
     },
-    level:{
+    level: {
       type: Number,
-      default:0
+      default: 0
     }
   },
   setup(props, context) {
     const rightItems = computed(() => {
-      let curSelected = props.selected[props.level]
-      if (curSelected && curSelected.children) {
-        return curSelected.children;
-      } else {
-        return null;
+      if (props.selected && props.selected[props.level]) {
+        let item = props.items.filter((item) => item.label === props.selected[props.level].label);
+        if (item && (item as any)[0].children && (item as any)[0].children.length > 0) {
+          return (item as any)[0].children;
+        }
       }
+
     });
-    const onClickLabel = (item)=> {
-      let copy = JSON.parse(JSON.stringify(props.selected))
-      copy[props.level] = item
-      copy.splice(props.level + 1)
-      context.emit('update:selected',copy)
-    }
-    const onUpdateSelected = (newSelected)=>{
-      context.emit('update:selected',newSelected)
-    }
-    return {rightItems,onClickLabel,onUpdateSelected};
+    const onClickLabel = (item) => {
+      let copy = JSON.parse(JSON.stringify(props.selected));
+      copy[props.level] = item;
+      copy.splice(props.level + 1);
+      context.emit('update:selected', copy);
+    };
+    const onUpdateSelected = (newSelected) => {
+      context.emit('update:selected', newSelected);
+    };
+    return {rightItems, onClickLabel, onUpdateSelected};
   }
 };
 </script>
@@ -73,26 +74,31 @@ export default {
   align-items: flex-start;
   justify-content: flex-start;
   height: 100px;
-  overflow: scroll;
-  .left{
+
+  .left {
     height: 100%;
     padding: .3em 0;
+    overflow: scroll;
   }
-  .right{
+
+  .right {
     height: 100%;
-    border-left: 1px solid lighten(#999,30%);
+    border-left: 1px solid lighten(#999, 30%);
   }
-  .label{
+
+  .label {
     padding: .3em 1em;
     display: flex;
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
-    &:hover{
+
+    &:hover {
       background: #f5f7fa;
       color: #40a9ff;
       fill: #40a9ff;
     }
+
     .icon {
       margin-left: 1em;
       transform: scale(.7);
