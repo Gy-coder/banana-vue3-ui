@@ -9,6 +9,7 @@
           :height="popoverHeight"
           :selected="selected"
           @update:selected="onUpdate"
+          :load-data="loadData"
       ></CascaderItems>
     </div>
   </div>
@@ -57,8 +58,7 @@ export default {
           return found;
         } else {
           found = simple(hasChildren, id);
-          if (found) {return found;}
-          else{
+          if (found) {return found;} else {
             for (let i = 0; i < hasChildren.length; i++) {
               found = complex(hasChildren[i].children, id);
               if (found) {
@@ -70,15 +70,14 @@ export default {
         }
       };
       const updateSource = (result) => {
-        let copy = JSON.parse(JSON.stringify(props.dataSource))
+        let copy = JSON.parse(JSON.stringify(props.dataSource));
         let toUpdate = complex(copy, lastItem.id);
-        if(toUpdate){
-          Object.assign(toUpdate, {children: result});
-        }
-        // toUpdate.children = result
-        context.emit('update:dataSource',copy)
+        Object.assign(toUpdate, {children: result});
+        context.emit('update:dataSource', copy);
       };
-      props.loadData(lastItem, updateSource);
+      if (!lastItem.isLeaf) {
+        props.loadData && props.loadData(lastItem, updateSource);
+      }
     };
     const result = computed(() => {
       return props.selected.map(item => item.label).join('/');

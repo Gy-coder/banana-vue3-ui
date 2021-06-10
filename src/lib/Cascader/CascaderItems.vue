@@ -2,8 +2,8 @@
   <div class="g-cascader-item" :style="{height: height}">
     <div class="left">
       <div v-for="item in items" class="label" @click="onClickLabel(item)">
-        {{ item.label }}
-        <icon class="icon" name="i-rightArrow" v-if="item.children"></icon>
+        <span class="name">{{ item.label }}</span>
+        <icon class="icon" name="i-rightArrow" v-if="loadData ? !item.isLeaf: item.children"></icon>
       </div>
     </div>
     <div class="right" v-if="rightItems">
@@ -13,6 +13,7 @@
           :level="level + 1"
           :selected="selected"
           @update:selected="onUpdateSelected"
+          :load-data="loadData"
       ></CascaderItems>
     </div>
   </div>
@@ -42,6 +43,9 @@ export default {
     level: {
       type: Number,
       default: 0
+    },
+    loadData:{
+      type: Function
     }
   },
   setup(props, context) {
@@ -87,7 +91,7 @@ export default {
   }
 
   .label {
-    padding: .3em 1em;
+    padding: .5em 1em;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -98,9 +102,11 @@ export default {
       color: #40a9ff;
       fill: #40a9ff;
     }
-
+    > .name{
+      margin-right: 1em;
+    }
     .icon {
-      margin-left: 1em;
+      margin-left: auto;
       transform: scale(.7);
     }
   }
