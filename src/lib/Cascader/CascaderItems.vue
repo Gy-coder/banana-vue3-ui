@@ -96,6 +96,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
+    white-space: nowrap;
 
     &:hover {
       background: #f5f7fa;

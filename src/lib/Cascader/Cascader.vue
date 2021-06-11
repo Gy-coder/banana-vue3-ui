@@ -1,6 +1,6 @@
 <template>
-  <div class="g-cascader">
-    <div class="g-cascader-trigger" @click="popVisible = !popVisible">
+  <div class="g-cascader" ref="wrapper">
+    <div class="g-cascader-trigger" @click="toggle">
       {{ result || '&nbsp;' }}
     </div>
     <div class="g-cascader-popover-wrapper" v-if="popVisible">
@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import CascaderItems from './CascaderItems.vue';
-import {computed, ref} from 'vue';
+import {computed, nextTick, onMounted, ref} from 'vue';
 
 export default {
   components: {CascaderItems},
@@ -37,6 +37,7 @@ export default {
   },
   setup(props, context) {
     const popVisible = ref(false);
+    const wrapper = ref<HTMLDivElement | null>(null);
     const onUpdate = (newSelected) => {
       context.emit('update:selected', newSelected);
       const lastItem = newSelected[newSelected.length - 1];
@@ -82,7 +83,31 @@ export default {
     const result = computed(() => {
       return props.selected.map(item => item.label).join('/');
     });
-    return {popVisible, onUpdate, result};
+    const open = () => {
+      popVisible.value = true;
+      setTimeout(() => {
+        document.addEventListener('click', onClickDocument);
+      });
+    };
+    const close = () => {
+      popVisible.value = false;
+      document.removeEventListener('click',onClickDocument)
+    };
+    const toggle = () => {
+      if (popVisible.value === true) {
+        close();
+      } else {
+        open();
+      }
+    };
+    const onClickDocument = (e) => {
+      if (wrapper.value && wrapper.value === e.target || wrapper.value.contains(e.target)) {
+        return;
+      } else {
+        close();
+      }
+    };
+    return {popVisible, onUpdate, result, toggle, wrapper};
   }
 };
 </script>
@@ -90,6 +115,7 @@ export default {
 <style lang="scss">
 .g-cascader {
   position: relative;
+  display: inline-flex;
 
   &-trigger {
     border: 1px solid red;
