@@ -10,6 +10,7 @@
           :selected="selected"
           @update:selected="onUpdate"
           :load-data="loadData"
+          :loading-item="loadingItem"
       ></CascaderItems>
     </div>
   </div>
@@ -17,7 +18,7 @@
 
 <script lang="ts">
 import CascaderItems from './CascaderItems.vue';
-import {computed, nextTick, onMounted, ref} from 'vue';
+import {computed,ref} from 'vue';
 
 export default {
   components: {CascaderItems},
@@ -32,11 +33,12 @@ export default {
       default: () => {return [];}
     },
     loadData: {
-      type: Function
+      type: Function,
     }
   },
   setup(props, context) {
     const popVisible = ref(false);
+    const loadingItem = ref({})
     const wrapper = ref<HTMLDivElement | null>(null);
     const onUpdate = (newSelected) => {
       context.emit('update:selected', newSelected);
@@ -71,13 +73,15 @@ export default {
         }
       };
       const updateSource = (result) => {
+        loadingItem.value = {}
         let copy = JSON.parse(JSON.stringify(props.dataSource));
         let toUpdate = complex(copy, lastItem.id);
         Object.assign(toUpdate, {children: result});
         context.emit('update:dataSource', copy);
       };
-      if (!lastItem.isLeaf) {
-        props.loadData && props.loadData(lastItem, updateSource);
+      if (!lastItem.isLeaf && props.loadData) {
+        props.loadData(lastItem, updateSource);
+        loadingItem.value = lastItem
       }
     };
     const result = computed(() => {
@@ -107,7 +111,7 @@ export default {
         close();
       }
     };
-    return {popVisible, onUpdate, result, toggle, wrapper};
+    return {popVisible, onUpdate, result, toggle, wrapper,loadingItem};
   }
 };
 </script>
@@ -136,6 +140,7 @@ export default {
     background: white;
     display: flex;
     box-shadow: 0 0 3px rgba(0, 0, 0, .25);
+    z-index: 1;
 
     > .label {
       flex-wrap: nowrap;

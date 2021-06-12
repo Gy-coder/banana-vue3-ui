@@ -3,7 +3,14 @@
     <div class="left">
       <div v-for="item in items" class="label" @click="onClickLabel(item)">
         <span class="name">{{ item.label }}</span>
-        <icon class="icon" name="i-rightArrow" v-if="loadData ? !item.isLeaf: item.children"></icon>
+        <span class="icons">
+          <template v-if="item.label === loadingItem.label">
+            <icon class="icon loading" name="i-loading"></icon>
+          </template>
+          <template v-else>
+            <icon class="icon next" name="i-rightArrow" v-if="loadData ? !item.isLeaf: item.children"></icon>
+          </template>
+        </span>
       </div>
     </div>
     <div class="right" v-if="rightItems">
@@ -14,6 +21,7 @@
           :selected="selected"
           @update:selected="onUpdateSelected"
           :load-data="loadData"
+          :loading-item="loadingItem"
       ></CascaderItems>
     </div>
   </div>
@@ -44,8 +52,12 @@ export default {
       type: Number,
       default: 0
     },
-    loadData:{
+    loadData: {
       type: Function
+    },
+    loadingItem:{
+      type: Object,
+      default:()=>({})
     }
   },
   setup(props, context) {
@@ -103,13 +115,29 @@ export default {
       color: #40a9ff;
       fill: #40a9ff;
     }
-    > .name{
+
+    > .name {
       margin-right: 1em;
     }
-    .icon {
+
+    .icons {
       margin-left: auto;
-      transform: scale(.7);
+      .next{
+        transform: scale(.7);
+      }
+      .loading{
+        animation: g-spin 2s infinite linear;
+      }
     }
+  }
+}
+
+@keyframes g-spin {
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
   }
 }
 </style>

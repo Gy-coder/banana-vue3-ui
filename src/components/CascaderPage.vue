@@ -7,8 +7,7 @@
       @update:selected="xxx"
       :load-data="loadData"
   />
-  <p>2222222</p>
-  <p>1111111</p>
+  <p>11111111</p>
   <Cascader
       popover-height="200px"
       v-model:data-source="option2"
