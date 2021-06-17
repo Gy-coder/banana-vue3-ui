@@ -1,62 +1,24 @@
 <template>
-  <div :style="{border: '1px solid red'}">
-    <Row>
-      <Col span="24"
-           :narrow-pc="{span:8}"
-           :pc="{span: 4}"
-      >
-        <div class="gutter-box"></div>
-      </Col>
-      <Col span="24"
-           :narrow-pc="{span:8}"
-           :pc="{span: 4}"
-      >
-        <div class="gutter-box"></div>
-      </Col>
-      <Col span="24"
-           :narrow-pc="{span:8}"
-           :pc="{span: 4}"
-      >
-        <div class="gutter-box"></div>
-      </Col>
-      <Col span="24"
-           :narrow-pc="{span:8}"
-           :pc="{span: 4}"
-      >
-        <div class="gutter-box"></div>
-      </Col>
-      <Col span="24"
-           :narrow-pc="{span:8}"
-           :pc="{span: 4}"
-      >
-        <div class="gutter-box"></div>
-      </Col>
-      <Col span="24"
-           :narrow-pc="{span:8}"
-           :pc="{span: 4}"
-      >
-        <div class="gutter-box"></div>
-      </Col>
-    </Row>
-  </div>
-  <div :style="{border: '1px solid blue'}">
-    <Row>
-      <Col span="12" offset="12" :pc="{span:11,offset:1}">
-        <div class="gutter-box"></div>
-      </Col>
-      <Col span="12" offset="12" :pc="{span:11,offset:1}">
-        <div class="gutter-box"></div>
-      </Col>
-    </Row>
-  </div>
+  <Demo :component="Grid1Demo" />
+  <Demo :component="Grid2Demo" />
+  <Demo :component="Grid5Demo" />
+  <Demo :component="Grid3Demo" />
+  <Demo :component="Grid4Demo" />
 </template>
 
 <script lang="ts">
-import Row from '../lib/Grid/Row.vue';
-import Col from '../lib/Grid/Col.vue';
+import Demo from './Demo.vue';
+import Grid1Demo from './Grid1.demo.vue'
+import Grid2Demo from './Grid2.demo.vue'
+import Grid3Demo from './Grid3.demo.vue'
+import Grid4Demo from './Grid4.demo.vue'
+import Grid5Demo from './Grid5.demo.vue'
 
 export default {
-  components: {Col, Row}
+  components: {Demo,Grid1Demo,Grid2Demo,Grid3Demo,Grid4Demo,Grid5Demo},
+  setup(){
+    return {Demo,Grid1Demo,Grid2Demo,Grid3Demo,Grid4Demo,Grid5Demo}
+  }
 };
 </script>
 

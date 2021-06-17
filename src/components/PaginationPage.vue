@@ -1,29 +1,19 @@
 <template>
-  <Pagination
-      :total-page="10"
-      v-model:current-page="n"
-  />
-  {{n}}
-  <Pagination
-      :total-page="5"
-      :current-page="1"
-  />
-  <Pagination
-      :total-page="15"
-      :current-page="15"
-  />
+  <h1>Pagination 示例</h1>
+  <Demo :component="PaginationDemo1"/>
 </template>
 
-
 <script lang="ts">
-import Pagination from '../lib/Pagination/Pagination.vue';
-import {ref} from 'vue';
-
+import Demo from './Demo.vue';
+import PaginationDemo1 from './PaginationPage1.demo.vue'
 export default {
-  components: {Pagination},
-  setup(){
-    const n = ref(5)
-    return {n}
+  components: {
+    Demo
+  },
+  setup() {
+    return {
+      Demo,PaginationDemo1
+    };
   }
 };
 </script>

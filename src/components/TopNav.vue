@@ -25,7 +25,7 @@ export default {
   },
   components: {Icon},
   setup() {
-    const menuVisible = inject<Ref<boolean>>('xxx');
+    const menuVisible = inject<Ref<boolean>>('getChildren');
     const toggleMenu = () => {
       menuVisible.value = !menuVisible.value;
     };

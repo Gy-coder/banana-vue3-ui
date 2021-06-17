@@ -1,18 +1,23 @@
 <template>
-  <div class="g-slides-item" v-if="visible">
+  <div class="g-slides-item" v-if="visible === index">
     <slot></slot>
   </div>
 </template>
 
 <script lang="ts">
-
-import {ref} from 'vue';
-
 export default {
-  name: '123',
+  props:{
+    index: {
+      type: Number,
+      required: true
+    },
+    visible: {
+      type: Number,
+      required: true,
+    }
+  },
   setup(props,context){
-    const visible = ref(true)
-    return {visible}
+    console.log(props.index);
   }
 };
 </script>

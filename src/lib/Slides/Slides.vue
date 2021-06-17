@@ -1,24 +1,30 @@
 <template>
   <div class="g-slides">
     <div class="g-slides-window" ref="ref2">
-      <slot></slot>
+      <component v-for="(child,index) in children"
+                 :is="child"
+                 :key="index"
+                 :index="index+1"
+                 :visible="visible"
+      ></component>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 
+import {ref} from 'vue';
+
 export default {
-  name: '345',
-  setup(props,context) {
-    const children = context.slots.default()
-    console.log('before:',children[0].type.setup().visible.value);
-    children[0].type.setup().visible.value = false
-    console.log('after:',children[0].type.setup().visible.value)
-    return {children}
+  setup(props, context) {
+    const children = context.slots.default();
+    const visible = ref(1)
+    setTimeout(()=>{
+      visible.value += 1
+    },5000)
+    return {children,visible};
   },
   mounted() {
-    console.log(this.$options.name);
   }
 };
 </script>
