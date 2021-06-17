@@ -1,5 +1,5 @@
 <demo>
-常规使用
+异步加载
 </demo>
 <template>
   <div>
@@ -15,31 +15,34 @@
 
 <script lang="ts">
 import db from '../db.js'
-import {ref} from 'vue';
 import Cascader from '../lib/Cascader/Cascader.vue';
+import {ref} from 'vue';
 
-function ajax(parentId) {
-  return new Promise((resolve, reject) => {
+function ajax(parentId){
+  return new Promise((resolve, reject)=> {
     setTimeout(() => {
-      let result = (db as Array<any>).filter(item => item.parent_id === parentId).map(item => {return {...item, label: item.name};});
-      result.forEach(node=>{
-        if((db as Array<any>).filter(item=>item.parent_id === node.id).length > 0){
+      let result = (db as Array<any>).filter(item => item.parent_id === parentId).map(item => {
+        return {
+          ...item,
+          label: item.name
+        };
+      });
+      result.forEach(node => {
+        if ((db as Array<any>).filter(item => item.parent_id === node.id).length > 0) {
           node.isLeaf = false
-        }else{
+        } else {
           node.isLeaf = true
         }
       })
       resolve(result);
     }, 300);
-  });
+  })
 }
 
 export default {
-  components: {
-    Cascader
-  },
+  components: {Cascader},
   setup(){
-    const option = ref([]);
+    const option = ref([])
     const selected = ref([])
     const loadData = (node,callback) => {
       let {id} = node;
@@ -56,7 +59,7 @@ export default {
     ajax(0).then((result) => {
       option.value = (result as any)
     });
-    return {selected,option,loadData,getChildren}
+    return {option,selected,loadData,getChildren}
   }
 }
 </script>
