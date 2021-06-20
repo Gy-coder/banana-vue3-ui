@@ -31,17 +31,17 @@ export default {
       const length = children.length
       const allIndex = Array.from({length}).map((v,k) => k + 1);
       let index = allIndex.indexOf(props.selected);
-      setInterval(() => {
+      let run = ()=>{
         if (index === allIndex.length) {index = 0;}
         context.emit('update:selected', allIndex[index + 1]);
         index++;
-      }, 3000);
+        setTimeout(run,3000)
+      }
+      setTimeout(run,3000)
     };
     playAutomatically();
     return {children, playAutomatically};
   },
-  mounted() {
-  }
 };
 </script>
 
