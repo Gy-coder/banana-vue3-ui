@@ -1,28 +1,30 @@
 <template>
+  {{selected}}
   <div class="g-slides">
     <div class="g-slides-window" ref="ref2">
-      <component v-for="(child,index) in children"
-                 :is="child"
-                 :key="index"
-                 :index="index+1"
-                 :visible="visible"
-      ></component>
+      <div class="g-slides-wrapper">
+        <component v-for="(child,index) in children"
+                   :is="child"
+                   :key="index"
+                   :index="index+1"
+                   :visible="selected"
+        ></component>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-
-import {ref} from 'vue';
-
 export default {
+  props:{
+    selected:{
+      type:Number,
+      default: 1,
+    }
+  },
   setup(props, context) {
     const children = context.slots.default();
-    const visible = ref(1)
-    setTimeout(()=>{
-      visible.value += 1
-    },5000)
-    return {children,visible};
+    return {children};
   },
   mounted() {
   }
@@ -31,8 +33,13 @@ export default {
 
 <style lang="scss">
 .g-slides {
+  display: inline-block;
   &-window {
 
+  }
+  &-wrapper{
+    position: relative;
+    border: 1px solid red;
   }
 }
 </style>
