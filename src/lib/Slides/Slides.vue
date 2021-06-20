@@ -1,5 +1,5 @@
 <template>
-  {{selected}}
+  {{ selected }}
   <div class="g-slides">
     <div class="g-slides-window" ref="ref2">
       <div class="g-slides-wrapper">
@@ -16,15 +16,29 @@
 
 <script lang="ts">
 export default {
-  props:{
-    selected:{
-      type:Number,
+  props: {
+    selected: {
+      type: Number,
       default: 1,
+    },
+    autoPlay: {
+      type: Boolean,
     }
   },
   setup(props, context) {
     const children = context.slots.default();
-    return {children};
+    const playAutomatically = () => {
+      const length = children.length
+      const allIndex = Array.from({length}).map((v,k) => k + 1);
+      let index = allIndex.indexOf(props.selected);
+      setInterval(() => {
+        if (index === allIndex.length) {index = 0;}
+        context.emit('update:selected', allIndex[index + 1]);
+        index++;
+      }, 3000);
+    };
+    playAutomatically();
+    return {children, playAutomatically};
   },
   mounted() {
   }
@@ -34,12 +48,13 @@ export default {
 <style lang="scss">
 .g-slides {
   display: inline-block;
+
   &-window {
 
   }
-  &-wrapper{
+
+  &-wrapper {
     position: relative;
-    border: 1px solid red;
   }
 }
 </style>

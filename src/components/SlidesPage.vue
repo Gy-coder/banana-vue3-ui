@@ -1,5 +1,5 @@
 <template>
-  <Slides :selected="selected">
+  <Slides v-model:selected="selected">
     <SlidesItem>
       <div class="box">1</div>
     </SlidesItem>
@@ -20,14 +20,6 @@ export default {
   components: {SlidesItem, Slides},
   setup() {
     const selected = ref(1)
-    let n = ref(1)
-    setInterval(() => {
-      n.value += 1
-      if (n.value === 4) {
-        n.value = 1
-      }
-      selected.value = n.value
-    }, 3000)
     return {selected}
   }
 }
