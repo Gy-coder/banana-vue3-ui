@@ -13,22 +13,23 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="js">
 import db from '../db.js'
 import Cascader from '../lib/Cascader/Cascader.vue';
 import {ref} from 'vue';
+import Demo from './Demo.vue';
 
 function ajax(parentId){
   return new Promise((resolve, reject)=> {
     setTimeout(() => {
-      let result = (db as Array<any>).filter(item => item.parent_id === parentId).map(item => {
+      let result = db.filter(item => item.parent_id === parentId).map(item => {
         return {
           ...item,
           label: item.name
         };
       });
       result.forEach(node => {
-        if ((db as Array<any>).filter(item => item.parent_id === node.id).length > 0) {
+        if (db.filter(item => item.parent_id === node.id).length > 0) {
           node.isLeaf = false
         } else {
           node.isLeaf = true
@@ -40,7 +41,7 @@ function ajax(parentId){
 }
 
 export default {
-  components: {Cascader},
+  components: {Demo, Cascader},
   setup(){
     const option = ref([])
     const selected = ref([])
@@ -57,7 +58,7 @@ export default {
       });
     };
     ajax(0).then((result) => {
-      option.value = (result as any)
+      option.value = result
     });
     return {option,selected,loadData,getChildren}
   }
