@@ -19,7 +19,7 @@ import {ref} from "vue";
 export default {
   components: {SlidesItem, Slides},
   setup() {
-    const selected = ref(1)
+    const selected = ref(3)
     return {selected}
   }
 }

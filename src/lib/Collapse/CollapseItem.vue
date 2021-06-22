@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import {getCurrentInstance, inject, onMounted, ref} from 'vue';
+import {inject, onMounted, ref} from 'vue';
 
 export default {
   props: {
@@ -25,7 +25,6 @@ export default {
   },
   setup(props, context) {
     const open = ref(false);
-    const instance = getCurrentInstance();
     const eventBus = inject('eventbus');
     onMounted(() => {
       eventBus.on('update:selected',(names)=>{
