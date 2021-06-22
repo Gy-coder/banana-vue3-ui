@@ -29,7 +29,7 @@ export default {
   setup(props, context) {
     const children = context.slots.default();
     let newIndex = ref(props.selected);
-    let prevIndex = ref();
+    let prevIndex = ref(newIndex.value);
     const playAutomatically = () => {
       const length = children.length;
       let run = () => {
@@ -47,7 +47,6 @@ export default {
       console.log('执行了');
       console.log(newIndex.value - prevIndex.value);
       console.log(newIndex.value > prevIndex.value);
-      debugger
       return !(newIndex.value - prevIndex.value > 0);
     });
     provide('visible', newIndex);
