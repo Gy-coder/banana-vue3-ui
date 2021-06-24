@@ -65,6 +65,14 @@ export default {
 .slide-leave-active {
   transition: all 1s;
 }
+.slide-leave-active,
+.slide-reverse-leave-active{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100% ;
+}
 .slide-enter-from {
   transform: translateX(100%);
 }
@@ -92,11 +100,13 @@ export default {
 }
 
 .g-slides {
+  &-window{
+    min-width: 100px;
+    min-height: 100px;
+    overflow: hidden;
+  }
   &-wrapper {
     position: relative;
-    width: 200px;
-    height: 150px;
-    overflow: hidden;
   }
 }
 </style>

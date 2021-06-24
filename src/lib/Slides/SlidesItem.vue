@@ -5,7 +5,6 @@
 </template>
 
 <script lang="ts">
-import { inject } from "vue";
 
 export default {
   props: {
@@ -20,10 +19,5 @@ export default {
 
 <style lang="scss">
 .g-slides-item {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 200px;
-  height: 150px;
 }
 </style>

@@ -28,8 +28,8 @@ export default {
 
 <style lang="scss" scoped>
 .box {
-  width: 200px;
-  height: 150px;
+  width: 100%;
+  height: 350px;
   background: pink;
   border: 1px solid black;
   box-sizing: border-box;
