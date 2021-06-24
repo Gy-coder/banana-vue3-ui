@@ -1,27 +1,34 @@
 <template>
-  <div class="g-slides" @mouseenter="onMouseEnter" @mouseleave="onMouseMove">
-    <div class="g-slides-window">
+  <div
+    class="g-slides"
+    @mouseenter="onMouseEnter"
+    @mouseleave="onMouseMove"
+    @touchstart="onTouchStart"
+    @touchmove="onTouchMove"
+    @touchend="onTouchEnd"
+  >
+    <div class="g-slide s-window">
       <div class="g-slides-window-wrapper">
         <transition-group
-            :name="`slide${isReverse ? '-reverse' : ''}`"
-            mode="out-in"
+          :name="`slide${isReverse ? '-reverse' : ''}`"
+          mode="out-in"
         >
           <component
-              v-for="(child, index) in children"
-              :is="child"
-              :key="index"
-              :index="index"
-              v-show="curIndex === index"
+            v-for="(child, index) in children"
+            :is="child"
+            :key="index"
+            :index="index"
+            v-show="curIndex === index"
           ></component>
         </transition-group>
       </div>
     </div>
     <div class="g-slides-dot">
       <span
-          v-for="(_,index) in children"
-          :key="index"
-          :class="{active: curIndex === index}"
-          @click="onSelect(index)"
+        v-for="(_, index) in children"
+        :key="index"
+        :class="{ active: curIndex === index }"
+        @click="onSelect(index)"
       >
         {{ index }}
       </span>
@@ -30,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import {onBeforeUnmount, onMounted, ref} from 'vue';
+import { onBeforeUnmount, onMounted, ref } from "vue";
 
 export default {
   props: {
@@ -44,36 +51,63 @@ export default {
   },
   setup(props, context) {
     const children = context.slots.default();
-    const {length} = children;
+    const { length } = children;
     const curIndex = ref(props.selected);
     const isReverse = ref(false);
+    const startTouch = ref(null);
+    const endTouch = ref(null);
     let id;
     const onPre = () => {
       isReverse.value = true;
       curIndex.value = (curIndex.value + length - 1) % length;
-      context.emit('update:selected', curIndex.value);
+      context.emit("update:selected", curIndex.value);
     };
     const onNext = () => {
       isReverse.value = false;
       curIndex.value = (curIndex.value + length + 1) % length;
-      context.emit('update:selected', curIndex.value);
+      context.emit("update:selected", curIndex.value);
     };
     const onSelect = (index) => {
       isReverse.value = curIndex.value > index;
       curIndex.value = index;
-      context.emit('update:selected', curIndex.value);
+      context.emit("update:selected", curIndex.value);
     };
     const playAutomatically = () => {
-      id = setInterval(onNext, 3000)
+      id = setInterval(onNext, 3000);
     };
-    const onMouseEnter = ()=>{
-      window.clearInterval(id)
-      id = undefined
-    }
-    const onMouseMove = ()=>{
-      if(id) return
-      playAutomatically()
-    }
+    const parse = () => {
+      window.clearInterval(id);
+      id = undefined;
+    };
+    const onMouseEnter = () => {
+      parse();
+    };
+    const onMouseMove = () => {
+      if (id) return;
+      playAutomatically();
+    };
+    const onTouchStart = (e) => {
+      parse();
+      if (e.touches.length > 1) return;
+      startTouch.value = e.touches[0];
+    };
+    const onTouchMove = (e) => {};
+    const onTouchEnd = (e) => {
+      endTouch.value = e.changedTouches[0];
+      const { clientX: x1, clientY: y1 } = startTouch.value;
+      const { clientX: x2, clientY: y2 } = endTouch.value;
+      const distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+      const deltaY = Math.abs(y2 - y1);
+      const rate = distance / deltaY;
+      if (rate > 2) {
+        if (x2 > x1) {
+          onNext();
+        } else {
+          onPre();
+        }
+      }
+      if (props.autoPlay) playAutomatically();
+    };
     onMounted(() => {
       if (props.autoPlay) playAutomatically();
     });
@@ -87,6 +121,9 @@ export default {
       onSelect,
       onMouseEnter,
       onMouseMove,
+      onTouchStart,
+      onTouchEnd,
+      onTouchMove,
       onPre,
       onNext,
     };
@@ -117,13 +154,13 @@ export default {
       justify-content: center;
       align-items: center;
       margin: 0 8px;
-      &:hover{
+      &:hover {
         cursor: pointer;
       }
-      &.active{
+      &.active {
         background: black;
         color: white;
-        &:hover{
+        &:hover {
           cursor: default;
         }
       }
@@ -135,7 +172,7 @@ export default {
 <style lang="scss">
 .slide-enter-active,
 .slide-leave-active {
-  transition: all .5s;
+  transition: all 0.5s;
 }
 
 .slide-leave-active,
@@ -162,7 +199,7 @@ export default {
 
 .slide-reverse-enter-active,
 .slide-reverse-leave-active {
-  transition: all .5s;
+  transition: all 0.5s;
 }
 
 .slide-reverse-enter-from {
