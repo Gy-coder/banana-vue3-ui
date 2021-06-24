@@ -1,51 +1,29 @@
 <template>
-  <Transition name="slide">
-    <div class="g-slides-item" v-if="visible === index" :class="{reverse}">
-      <slot></slot>
-    </div>
-  </Transition>
+  <div class="g-slides-item">
+    <slot></slot>
+  </div>
 </template>
 
 <script lang="ts">
-import {inject} from 'vue';
+import { inject } from "vue";
 
 export default {
   props: {
     index: {
       type: Number,
-      required: true
+      required: true,
     },
   },
-  setup(props, context) {
-    const visible = inject('visible')
-    const reverse = inject('reverse')
-    return {visible,reverse}
-  }
+  setup(props, context) {},
 };
 </script>
 
 <style lang="scss">
-.g-slides-item{
-
-}
-.slide-leave-active{
+.g-slides-item {
   position: absolute;
+  top: 0;
   left: 0;
-  top:0;
-}
-.slide-enter-active,.slide-leave-active {
-  transition: all 1s;
-}
-.slide-enter{
-  transform: translateX(100%);
-}
-.slide-leave-to{
-  transform: translateX(-100%);
-}
-.slide-enter.reverse{
-  transform: translateX(-100%);
-}
-.slide-leave-to.reverse{
-  transform: translateX(100%);
+  width: 200px;
+  height: 150px;
 }
 </style>

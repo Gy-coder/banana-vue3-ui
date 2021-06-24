@@ -1,72 +1,101 @@
 <template>
-  {{ prevIndex }}{{ newIndex }}{{ newIndex > prevIndex }}
   <div class="g-slides">
-    <div class="g-slides-window" ref="ref2">
+    <div class="g-slides-window">
       <div class="g-slides-wrapper">
-        <component v-for="(child,index) in children"
-                   :is="child"
-                   :key="index"
-                   :index="index+1"
-        ></component>
+        <transition-group
+          :name="`slide${isReverse ? '-reverse' : ''}`"
+          mode="out-in"
+        >
+          <component
+            v-for="(child, index) in children"
+            :is="child"
+            :key="index"
+            :index="index"
+            v-show="curIndex === index"
+          ></component>
+        </transition-group>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import {computed, provide, ref} from 'vue';
+import { onBeforeUnmount, onMounted, ref } from "vue";
 
 export default {
   props: {
     selected: {
       type: Number,
-      default: 1,
+      default: 0,
     },
     autoPlay: {
       type: Boolean,
-    }
+    },
   },
   setup(props, context) {
     const children = context.slots.default();
-    let newIndex = ref(props.selected);
-    let prevIndex = ref(newIndex.value);
-    const playAutomatically = () => {
-      const length = children.length;
-      let run = () => {
-        prevIndex.value = newIndex.value;
-        newIndex.value++;
-        if (newIndex.value === length + 1) {newIndex.value = 1;}
-        if (newIndex.value === 0) {newIndex.value = length;}
-        console.log('prev:', prevIndex.value, 'new:', newIndex.value);
-        context.emit('update:selected', newIndex.value);
-        setTimeout(run, 3000);
-      };
-      setTimeout(run, 3000);
+    const { length } = children;
+    const curIndex = ref(props.selected);
+    const isReverse = ref(false);
+    let id;
+    const onPre = () => {
+      isReverse.value = true;
+      curIndex.value = (curIndex.value + length - 1) % length;
+      context.emit("update:selected", curIndex.value);
     };
-    const reverse = computed(() => {
-      console.log('执行了');
-      console.log(newIndex.value - prevIndex.value);
-      console.log(newIndex.value > prevIndex.value);
-      return !(newIndex.value - prevIndex.value > 0);
+    const onNext = () => {
+      isReverse.value = false;
+      curIndex.value = (curIndex.value + length + 1) % length;
+      context.emit("update:selected", curIndex.value);
+    };
+    const playAutomatically = () => (id = setInterval(onNext, 3000));
+    onMounted(() => {
+      if (props.autoPlay) playAutomatically();
     });
-    provide('visible', newIndex);
-    provide('reverse', reverse);
-    playAutomatically();
-    return {children, playAutomatically, newIndex, prevIndex};
+    onBeforeUnmount(() => {
+      if (props.autoPlay) clearInterval(id);
+    });
+    return { children, curIndex, isReverse };
   },
 };
 </script>
 
 <style lang="scss">
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 1s;
+}
+.slide-enter-from {
+  transform: translateX(100%);
+}
+.slide-enter-to,
+.slide-leave-from {
+  transform: translateX(0%);
+}
+.slide-leave-to {
+  transform: translateX(-100%);
+}
+
+.slide-reverse-enter-active,
+.slide-reverse-leave-active {
+  transition: all 1s;
+}
+.slide-reverse-enter-from {
+  transform: translateX(-100%);
+}
+.slide-reverse-enter-to,
+.slide-reverse-leave-from {
+  transform: translateX(0%);
+}
+.slide-reverse-leave-to {
+  transform: translateX(100%);
+}
+
 .g-slides {
-  display: inline-block;
-
-  &-window {
-
-  }
-
   &-wrapper {
     position: relative;
+    width: 200px;
+    height: 150px;
     overflow: hidden;
   }
 }
