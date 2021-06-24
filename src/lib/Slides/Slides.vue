@@ -7,7 +7,7 @@
     @touchmove="onTouchMove"
     @touchend="onTouchEnd"
   >
-    <div class="g-slide s-window">
+    <div class="g-slides-window">
       <div class="g-slides-window-wrapper">
         <transition-group
           :name="`slide${isReverse ? '-reverse' : ''}`"
@@ -24,14 +24,16 @@
       </div>
     </div>
     <div class="g-slides-dot">
+      <span @click="onPre">&lt;</span>
       <span
         v-for="(_, index) in children"
         :key="index"
         :class="{ active: curIndex === index }"
         @click="onSelect(index)"
       >
-        {{ index }}
+        {{ index + 1 }}
       </span>
+      <span @click="onNext">&gt;</span>
     </div>
   </div>
 </template>
@@ -145,6 +147,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 10px;
     > span {
       display: inline-flex;
       width: 20px;
