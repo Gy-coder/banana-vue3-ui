@@ -17,6 +17,7 @@ import GridPage from './components/GridPage.vue';
 import PaginationPage from './components/PaginationPage.vue';
 import SlidesPage from './components/SlidesPage.vue'
 import CascaderPage from './components/CascaderPage.vue'
+import NavPage from './components/NavPage.vue'
 //@ts-ignore
 import install from './markdown/install.md';
 //@ts-ignore
@@ -108,6 +109,10 @@ const router = createRouter({
         {
           path: 'cascader',
           component: CascaderPage,
+        },
+        {
+          path:'nav',
+          component: NavPage,
         }
       ]
     }

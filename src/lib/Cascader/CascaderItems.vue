@@ -1,86 +1,103 @@
 <template>
-  <div class="g-cascader-item" :style="{height: height}">
+  <div class="g-cascader-item" :style="{ height: height }">
     <div class="left">
-      <div v-for="item in items" class="label" @click="onClickLabel(item)">
+      <div
+        v-for="(item, index) in items"
+        :key="index"
+        class="label"
+        @click="onClickLabel(item)"
+      >
         <span class="name">{{ item.label }}</span>
         <span class="icons">
           <template v-if="item.label === loadingItem.label">
             <icon class="icon loading" name="i-loading"></icon>
           </template>
           <template v-else>
-            <icon class="icon next" name="i-rightArrow" v-if="loadData ? !item.isLeaf: item.children"></icon>
+            <icon
+              class="icon next"
+              name="i-rightArrow"
+              v-if="loadData ? !item.isLeaf : item.children"
+            ></icon>
           </template>
         </span>
       </div>
     </div>
     <div class="right" v-if="rightItems">
       <CascaderItems
-          :items="rightItems"
-          :height="height"
-          :level="level + 1"
-          :selected="selected"
-          @update:selected="onUpdateSelected"
-          :load-data="loadData"
-          :loading-item="loadingItem"
+        :items="rightItems"
+        :height="height"
+        :level="level + 1"
+        :selected="selected"
+        @update:selected="onUpdateSelected"
+        :load-data="loadData"
+        :loading-item="loadingItem"
       ></CascaderItems>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import {computed} from 'vue';
-import Icon from '../Icon/Icon.vue';
+import { computed } from "vue";
+import Icon from "../Icon/Icon.vue";
 
 interface Props {
-  label: string,
-  value: [string, number]
-  children?: Props[],
+  label: string;
+  value: [string, number];
+  children?: Props[];
 }
 
 export default {
-  components: {Icon},
+  components: { Icon },
   props: {
     items: {
-      type: Array
+      type: Array,
     },
     height: String,
     selected: {
       type: Array,
-      default: () => {return [];}
+      default: () => {
+        return [];
+      },
     },
     level: {
       type: Number,
-      default: 0
+      default: 0,
     },
     loadData: {
-      type: Function
+      type: Function,
     },
-    loadingItem:{
+    loadingItem: {
       type: Object,
-      default:()=>({})
-    }
+      default: () => ({}),
+    },
   },
   setup(props, context) {
     const rightItems = computed(() => {
       if (props.selected && props.selected[props.level]) {
-        let item = props.items.filter((item) => item.label === props.selected[props.level].label);
-        if (item && (item as any)[0].children && (item as any)[0].children.length > 0) {
+        let item = props.items.filter(
+          // @ts-ignore
+          (item) => item.label === props.selected[props.level].label
+        );
+        if (
+          item &&
+          (item as any)[0].children &&
+          (item as any)[0].children.length > 0
+        ) {
           return (item as any)[0].children;
         }
       }
-
     });
     const onClickLabel = (item) => {
       let copy = JSON.parse(JSON.stringify(props.selected));
       copy[props.level] = item;
       copy.splice(props.level + 1);
-      context.emit('update:selected', copy);
+      context.emit("update:selected", copy);
     };
     const onUpdateSelected = (newSelected) => {
-      context.emit('update:selected', newSelected);
+      context.emit("update:selected", newSelected);
     };
-    return {rightItems, onClickLabel, onUpdateSelected};
-  }
+    return { rightItems, onClickLabel, onUpdateSelected };
+  },
 };
 </script>
 
@@ -93,7 +110,7 @@ export default {
 
   .left {
     height: 100%;
-    padding: .3em 0;
+    padding: 0.3em 0;
     overflow: scroll;
   }
 
@@ -103,7 +120,7 @@ export default {
   }
 
   .label {
-    padding: .5em 1em;
+    padding: 0.5em 1em;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -122,10 +139,10 @@ export default {
 
     .icons {
       margin-left: auto;
-      .next{
-        transform: scale(.7);
+      .next {
+        transform: scale(0.7);
       }
-      .loading{
+      .loading {
         animation: g-spin 2s infinite linear;
       }
     }
@@ -133,10 +150,10 @@ export default {
 }
 
 @keyframes g-spin {
-  0%{
+  0% {
     transform: rotate(0deg);
   }
-  100%{
+  100% {
     transform: rotate(360deg);
   }
 }
