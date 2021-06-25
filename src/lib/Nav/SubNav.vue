@@ -24,6 +24,11 @@ export default {
 </script>
 
 <style lang="scss">
+$blue: #40a9ff;
+$color: #333;
+$border-color: #d9d9d9;
+$grey: #ddd;
+$color-light: #666;
 .g-sub-nav {
   position: relative;
 
@@ -36,13 +41,29 @@ export default {
     position: absolute;
     top: 100%;
     left: 0;
-    border: 1px solid red;
     white-space: nowrap;
+    margin-top: 4px;
+    background: white;
+    box-shadow: 0 0 3px fade-out(black,.8);
+    border-radius: 4px;
+    font-size: 12px;
+    color: $color-light;
+    min-width: 8em;
   }
 }
 .g-sub-nav .g-sub-nav .g-sub-nav-popover{
   top: 0;
   left: 100%;
   margin-left: 8px;
+}
+
+.g-sub-nav .g-nav-item{
+  &.selected{
+    background: $grey;
+    color: $color;
+    &:after{
+      display: none;
+    }
+  }
 }
 </style>

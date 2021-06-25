@@ -31,11 +31,21 @@ export default {
 </script>
 
 <style lang="scss">
+$blue: #40a9ff;
+$color: #333;
+$border-color: #d9d9d9;
 .g-nav-item {
   padding: 16px;
-
+  position: relative;
   &.selected {
-    background: slateblue;
+    &::after{
+      content:'';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      border-bottom: 3px solid #40a9ff;
+      width: 100%;
+    }
   }
 }
 </style>

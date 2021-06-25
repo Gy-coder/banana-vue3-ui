@@ -49,8 +49,13 @@ export default {
 </script>
 
 <style lang="scss">
+$blue: #40a9ff;
+$color: #333;
+$border-color: #d9d9d9;
 .g-nav {
   display: flex;
-  border: 1px solid red;
+  color: $color;
+  border-bottom: 1px solid $border-color;
+  cursor: pointer;
 }
 </style>
