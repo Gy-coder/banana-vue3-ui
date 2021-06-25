@@ -1,5 +1,7 @@
 <template>
-  <div>SubNav</div>
+  <div>
+    <slot></slot>
+  </div>
 </template>
 
 <script lang="ts">
