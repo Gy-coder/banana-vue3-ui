@@ -30,7 +30,7 @@ export default {
 .box {
   width: 100%;
   height: 300px;
-  background: #374e78;
+  background: #40a9ff;
   color: white;
   box-sizing: border-box;
   display: flex;
