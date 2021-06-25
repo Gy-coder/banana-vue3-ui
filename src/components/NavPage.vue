@@ -8,6 +8,11 @@
       <template v-slot:title>其他技术</template>
       <NavItem name="AntD">antD</NavItem>
       <NavItem name="Element">Element</NavItem>
+      <SubNav>
+        <template v-slot:title>css技术</template>
+        <NavItem name="scss">scss</NavItem>
+        <NavItem name="less">less</NavItem>
+      </SubNav>
     </SubNav>
   </Nav>
 </template>
