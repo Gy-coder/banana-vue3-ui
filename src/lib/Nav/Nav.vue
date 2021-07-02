@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import EventBus from '../../util/eventbus.ts';
-import {onMounted, provide} from 'vue';
+import {onMounted, provide, ref} from 'vue';
 
 export default {
   props: {
@@ -44,6 +44,7 @@ export default {
         }
       });
     });
+    return {}
   }
 };
 </script>

@@ -4,17 +4,18 @@
     <NavItem name="home">首页</NavItem>
     <NavItem name="Vue">Vue</NavItem>
     <NavItem name="React">React</NavItem>
-    <SubNav>
+    <SubNav name="tech">
       <template v-slot:title>其他技术</template>
       <NavItem name="AntD">antD</NavItem>
       <NavItem name="Element">Element</NavItem>
-      <SubNav>
+      <SubNav name="css">
         <template v-slot:title>css技术</template>
         <NavItem name="scss">scss</NavItem>
         <NavItem name="less">less</NavItem>
       </SubNav>
     </SubNav>
   </Nav>
+  <p>你好 我是中文 你好 我是中文 你好 我是中文 你好 我是中文</p>
 </template>
 
 <script lang="ts">
