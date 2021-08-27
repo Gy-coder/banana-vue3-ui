@@ -1,5 +1,5 @@
 <template>
-  <div class="g-sub-nav" :class="{active: x}" ref="wrapperRef">
+  <div class="g-sub-nav" :class="{active}" ref="wrapperRef">
     <span @click="onClick">
       <slot name="title"></slot>
     </span>
@@ -21,11 +21,9 @@ export default {
     }
   },
   setup(props, context) {
-    const eventBus = inject('eventBus');
-    const children = context.slots.default();
-    const subNames = children.filter(child => child.type === NavItem).map(node => node.props.name);
+    const namePath = []
     const open = ref(false);
-    const x = ref(false);
+    const active = ref(false);
     const wrapperRef = ref(null);
     const onClick = () => {
       open.value = !open.value;
@@ -42,7 +40,7 @@ export default {
         open.value = false
       }
     };
-    return {open, onClick, wrapperRef, x};
+    return {open, onClick, wrapperRef, active};
   },
 };
 </script>
