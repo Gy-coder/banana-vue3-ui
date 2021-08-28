@@ -1,7 +1,6 @@
 <demo>
 常规使用
 </demo>
-
 <template>
   <Pagination
       :total-page="10"

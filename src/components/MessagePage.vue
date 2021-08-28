@@ -1,4 +1,5 @@
 <template>
+  <h1>Message 示例</h1>
   <Demo :component="MessageDemo1"></Demo>
 </template>
 <script lang="ts">

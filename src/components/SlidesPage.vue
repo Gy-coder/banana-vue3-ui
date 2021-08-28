@@ -1,4 +1,5 @@
 <template>
+  <h1>Slides 示例</h1>
   <Demo :component="Slides1Demo"></Demo>
   <Demo :component="Slides2Demo"></Demo>
 </template>
