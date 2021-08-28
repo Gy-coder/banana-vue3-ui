@@ -2,7 +2,7 @@
   <div class="topnav">
     <div class="logo">
       <router-link to="/">
-        <icon name="i-moon" :style="{fill: '#f3a740',height: 32,width: 32}"></icon>
+        <icon name="i-banana" :style="{fill: '#f3a740',height: 32,width: 32}"></icon>
       </router-link>
     </div>
     <ul class="menu">

@@ -63,9 +63,6 @@
           <li>
             <router-link to="/doc/cascader">Cascader 组件</router-link>
           </li>
-          <li>
-            <router-link to="/doc/nav">Nav 组件</router-link>
-          </li>
         </ol>
       </aside>
       <main>

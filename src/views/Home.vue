@@ -3,8 +3,8 @@
     <div class="topNavAndBanner">
       <TopNav />
       <div class="banner">
-        <h1>UI</h1>
-        <h2>一个厉害的UI</h2>
+        <h1>banana-vue3-ui</h1>
+        <h2>一个好用的基于vue3的ui框架</h2>
         <p class="actions">
           <a href="https://github.com">github</a>
           <router-link to="/Doc">开始</router-link>
