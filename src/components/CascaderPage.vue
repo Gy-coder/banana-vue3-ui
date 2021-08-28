@@ -2,13 +2,6 @@
   <h1>Cascader 示例</h1>
   <Demo :component="CascaderDemo2" />
   <Demo :component="CascaderDemo1" />
-  <Cascader
-      popover-height="200px"
-      v-model:data-source="option"
-      v-model:selected="selected"
-      @update:selected="getChildren"
-      :load-data="loadData"
-  />
 </template>
 <script lang="ts">
 import Demo from './Demo.vue';
