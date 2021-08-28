@@ -1,5 +1,5 @@
 <demo>
-支持多选
+手风琴组件（只能选择一个）
 </demo>
 <template>
   <div>

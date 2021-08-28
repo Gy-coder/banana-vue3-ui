@@ -7,7 +7,7 @@ Hover方式
       <template v-slot:content>
         我是popover
       </template>
-      <Button>click me</Button>
+      <Button>hover me</Button>
     </Popover>
   </div>
 </template>
