@@ -6,7 +6,7 @@
         <h1>banana-vue3-ui</h1>
         <h2>一个好用的基于vue3的ui框架</h2>
         <p class="actions">
-          <a href="https://github.com">github</a>
+          <a href="https://github.com/Gy-coder/banana-vue3-ui">github</a>
           <router-link to="/Doc">开始</router-link>
         </p>
       </div>
