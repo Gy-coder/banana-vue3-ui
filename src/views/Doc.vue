@@ -40,7 +40,7 @@
             <router-link to="/doc/radio">Radio 组件</router-link>
           </li>
           <li>
-            <router-link to="/doc/toast">Toast 组件</router-link>
+            <router-link to="/doc/message">Message 组件</router-link>
           </li>
           <li>
             <router-link to="/doc/popover">Popover 组件</router-link>
@@ -134,6 +134,7 @@ aside {
   left: 0;
   padding-top: 70px;
   height: 100%;
+  z-index:1;
 
   > h2 {
     margin-bottom: 4px;

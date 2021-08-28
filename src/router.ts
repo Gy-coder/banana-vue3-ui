@@ -8,7 +8,7 @@ import DialogPage from './components/DialogPage.vue';
 import TabsPage from './components/TabsPage.vue';
 import IconPage from './components/IconPage.vue';
 import RadioPage from './components/RadioPage.vue';
-import ToastPage from './components/ToastPage.vue';
+import ToastPage from './components/MessagePage.vue';
 import PopoverPage from './components/PopoverPage.vue';
 import LayoutPage from './components/LayoutPage.vue';
 import InputPage from './components/InputPage.vue';
@@ -75,7 +75,7 @@ const router = createRouter({
           component: RadioPage
         },
         {
-          path: 'toast',
+          path: 'message',
           component: ToastPage
         },
         {

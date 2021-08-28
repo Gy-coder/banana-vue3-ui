@@ -1,14 +1,11 @@
 import {App, createApp, h, VNode} from 'vue';
-import ToastComponent from './Toast.vue';
+import ToastComponent from './Message.vue';
 
 interface OptionProps {
   message: VNode,
-  autoClose?: boolean | number
-  clickClose?: boolean
-  onMaskClick?: Function,
   afterClose?: Function,
-  style: Object,
-  position?: 'top' | 'middle' | 'bottom'
+  time: number,
+  type: 'success' | 'error' | 'waring',
 }
 
 let app: App;
@@ -23,9 +20,9 @@ function unmountToast() {
   }
 }
 
-export const Toast = {
+export const Message = {
   show(options: OptionProps) {
-    const {message, autoClose = 3,afterClose,...rest} = options;
+    const {message,afterClose,time = 3,...rest} = options;
     unmountToast();
     clearTimeout(timer);
     const div = document.createElement('div');
@@ -35,26 +32,24 @@ export const Toast = {
         render() {
           return h(ToastComponent,
             {
+              message,
               show: true,
-              autoClose,
               afterClose,
+              time,
               ...rest,
               'onUpdate:show': (newShow) => {
                 if (newShow === false) {
                   unmountToast();
                 }
               }
-            },
-            {
-              default: () => message
             });
         }
       }
     );
-    if (autoClose !== false && typeof autoClose === 'number') {
+    if (time) {
       timer = setTimeout(() => {
         this.close(afterClose);
-      }, autoClose * 1000);
+      }, time * 1000);
     }
     app.mount(div);
   },

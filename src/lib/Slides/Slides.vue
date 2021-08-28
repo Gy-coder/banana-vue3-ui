@@ -24,16 +24,14 @@
       </div>
     </div>
     <div class="g-slides-dot">
-      <span @click="onPre">&lt;</span>
       <span
         v-for="(_, index) in children"
         :key="index"
         :class="{ active: curIndex === index }"
         @click="onSelect(index)"
       >
-        {{ index + 1 }}
+        <button>{{index+1}}</button>
       </span>
-      <span @click="onNext">&gt;</span>
     </div>
   </div>
 </template>
@@ -50,6 +48,10 @@ export default {
     autoPlay: {
       type: Boolean,
     },
+    time:{
+      type: Number,
+      default: 0
+    }
   },
   setup(props, context) {
     const children = context.slots.default();
@@ -75,7 +77,7 @@ export default {
       context.emit("update:selected", curIndex.value);
     };
     const playAutomatically = () => {
-      id = setInterval(onNext, 3000);
+      id = setInterval(onNext, props.time * 1000);
     };
     const parse = () => {
       window.clearInterval(id);
@@ -85,7 +87,7 @@ export default {
       parse();
     };
     const onMouseMove = () => {
-      if (id) return;
+      if (id || props.autoPlay === false) return;
       playAutomatically();
     };
     const onTouchStart = (e) => {
@@ -135,6 +137,7 @@ export default {
 
 <style lang="scss">
 .g-slides {
+  position: relative;
   &-window {
     overflow: hidden;
 
@@ -148,24 +151,48 @@ export default {
     justify-content: center;
     align-items: center;
     margin-top: 10px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 5%;
     > span {
-      display: inline-flex;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: #ddd;
-      justify-content: center;
-      align-items: center;
-      margin: 0 8px;
+      position: relative;
+      display: inline-block;
+      flex: 0 1 auto;
+      box-sizing: content-box;
+      width: 24px;
+      height: 4px;
+      margin: 0 6px;
+      padding: 0;
+      text-align: center;
+      text-indent: -999px;
+      vertical-align: top;
+      transition: all .5s;
+      > button{
+        display: block;
+        width: 100%;
+        height: 4px;
+        padding: 0;
+        color: transparent;
+        font-size: 0;
+        background: #fff;
+        border: 0;
+        border-radius: 1px;
+        outline: none;
+        cursor: pointer;
+        opacity: .3;
+        transition: all .5s;
+        &.active{
+          background: #fff;
+          opacity: 1;
+        }
+      }
       &:hover {
         cursor: pointer;
       }
-      &.active {
-        background: black;
-        color: white;
-        &:hover {
-          cursor: default;
-        }
+      &.active{
+        width: 30px;
+        background: white;
       }
     }
   }
