@@ -109,10 +109,6 @@ const router = createRouter({
         {
           path: 'cascader',
           component: CascaderPage,
-        },
-        {
-          path:'nav',
-          component: NavPage,
         }
       ]
     }
