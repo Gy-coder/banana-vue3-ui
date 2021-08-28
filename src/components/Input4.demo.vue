@@ -1,5 +1,5 @@
 <demo>
-支持disabled
+支持error
 </demo>
 <template>
   <div>
