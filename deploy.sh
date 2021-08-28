@@ -1,4 +1,4 @@
-rm -r dist
+rm -rf dist
 npm run build
 cd dist
 git init
