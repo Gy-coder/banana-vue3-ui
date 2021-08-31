@@ -114,6 +114,7 @@ export default {
   > aside {
     flex-shrink: 0;
     overflow: scroll;
+    z-index: 5;
   }
 
   > main {
